@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="FretesWeb!">
+    <meta name="author" content="Victor Nery">
+
+    <title>FretesWeb | Fretes para todo o Brasil</title>
+
+    <!-- CSS -->
+    <link href="css/estilo.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="scripts/GLOBAL.js"></script>
+    <script type="text/javascript">
+            var daaaa;
+    $(document).ready(function(){
+        $(".entrar").click(function(){
+            $("body").append("<div id=\"loading\" style=\"position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background-color: #2a2826; background-image: url('imagens/loading.gif'); background-size: 100% auto; background-repeat: no-repeat; background-position: center center; z-index:99999; \"></div>");
+            $.getJSON( config__apisite+"login.php", $("form").serialize())
+            .complete(function( data ) {
+                if(typeof data.responseJSON == "undefined"){
+                    $("#loading").remove();
+                    alert("Dados incorretos");
+                }
+                else if(typeof data.responseJSON['document'] != "undefined"){
+                    localStorage.setItem("id", data.responseJSON['id']);
+                    localStorage.setItem("document", data.responseJSON['document']);
+                    localStorage.setItem("name", data.responseJSON['name']);
+                    localStorage.setItem("mail", $("input[name='mail']").val());
+                    localStorage.setItem("password", $("input[name='password']").val());
+                    localStorage.setItem("veiculo", data.responseJSON['veiculo']);
+                    localStorage.setItem("carroceria", data.responseJSON['carroceria']);
+                    localStorage.setItem("telefone", data.responseJSON['telefone']);
+                    localStorage.setItem("avatar", data.responseJSON['avatar']);
+                    localStorage.setItem("logged", true);
+                    self.location.href = "cargas.html";
+                }
+            });
+        });
+    });
+    </script>
+
+</head>
+
+    <body>
+
+        <header>
+            <nav class="container">
+                <a href="home.html" style="float:left;"><i class="fa fa-chevron-left"></i> Voltar</a>
+                <center><h1>Login</h1></center>
+               <!-- <a href="#" style="float:right;">Atualizar</a>-->
+            </nav>
+        </header>
+
+        <nav class="container">
+            <div class="telefone">
+                <p style="font-family: 'Myriad Pro Regular'; color: #a6a6a6;">Entre agora na sua conta insirindo o e-mail e a senha cadastrada.</p> <br />
+                <center>
+                <form>
+                <input name="mail" type="mail" class="input-block" placeholder="Digite seu e-mail">
+                <input name="password" type="password" class="input-block" placeholder="Digite sua senha">
+                </form>
+                </center>
+                <a href="#" class="entrar"><input class="botao-dash" type="button" url="#" value="Entrar" style="background-color: #458181; color: #fff; margin-top:20px;"></a>
+                <a href="#"><input class="botao-dash" type="button" url="#" value="Esqueceu sua senha?" style="margin-top: 5px; background: transparent; color: #555555;"></a>
+            </div>
+        </nav>
+
+       <!-- <menu>
+            
+                <ul>
+                    <li class="check"><a href="#"><i class="fa fa-user fa-2" style="font-size:17px;padding-bottom:2px"></i><br/> Meu perfil</a></li>
+                    <li><a href="#"><i class="fa fa-cube fa-2" style="font-size:17px;padding-bottom:2px"></i><br/>Ofertas de Carga</a></li>
+                    <li><a href="#"><i class="fa fa-search fa-2" style="font-size:17px;padding-bottom:2px"></i><br/>Buscar Cargas</a></li>
+                    <li><a href="#"><i class="fa fa-comment fa-2" style="font-size:17px;padding-bottom:2px"></i><br/>Fale conosco</a></li>
+                </ul>
+
+        </menu>-->
+
+    </body>
+
+
+</html>

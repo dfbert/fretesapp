@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="FretesWeb!">
+    <meta name="author" content="Victor Nery">
+
+    <title>FretesWeb | Fretes para todo o Brasil</title>
+
+    <!-- CSS -->
+    <link href="css/estilo.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="scripts/GLOBAL.js"></script>
+    <script type="text/javascript" src="scripts/validacpf.min.js"></script>
+    <script type="text/javascript" src="scripts/jquery.mask.js"></script>
+    <script type="text/javascript" src="scripts/veiculos.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        if(localStorage.getItem("logged") != "true"){
+            self.location.href = "home.html";
+        }
+        $(".sair").click(function(){
+            localStorage.clear();
+            self.location.href = "home.html";
+        });
+        $(".rplc").each(function(){
+            var value = $(this).attr("data-value");
+            if(value == "veiculo"){
+                $(tipo_veiculos).each(function(){
+                    if(localStorage.getItem("veiculo") == this.id) value = this.nome;
+                });
+            }
+            else if(value == "carroceria"){
+                $(tipo_carrocerias).each(function(){
+                    if(localStorage.getItem("carroceria") == this.id) value = this.nome;
+                });
+            }
+            else{
+                        if(localStorage.getItem(value) !== null && localStorage.getItem(value).length) value = localStorage.getItem(value);
+                        else value = '...';
+            }
+            $(this).html(value);
+        });
+        if(localStorage.getItem("avatar") !== null && localStorage.getItem("avatar").length) $("img").attr("src", localStorage.getItem("avatar"));
+        var cw = $('img').width();
+        $('img').css({'height':cw+'px'});
+        $( window ).resize(function() {
+            var cw = $('img').width();
+            $('img').css({'height':cw+'px'});
+        });
+
+
+    });
+    </script>
+
+</head>
+
+    <body>
+
+        <header>
+            <nav class="container">
+               <!-- <a href="#" style="float:left;"><i class="fa fa-chevron-left"></i> Voltar</a>-->
+                <h1>Perfil</h1>
+                <a href="editarperfil.html" style="float:right;"><i class="fa fa-pencil-square-o"></i> Editar</a>
+            </nav>
+        </header>
+
+        <nav id="perfil" class="container">
+            <div class="principal">
+            <img src="data:image/jpeg;base64,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" style="border-radius:100%; -webkit-border-radius:100%; -moz-border-radius: 100%; width: 35%;">
+            <h1 class="rplc" data-value="name">...</h1>
+            </div>
+            <div class="info-perfil">
+            
+            <h1>Informações Pessoais</h1><hr>
+            <p>CPF</p>
+            <span class="rplc" data-value="document"></span>
+            
+            </div>
+            
+            <div class="info-perfil" style="margin-top:20px">
+
+            <h1>CONTATOS</h1> <hr>
+
+            <div style="float: left">
+            <p>TELEFONE</p>
+            <span class="rplc" data-value="telefone">...</span>
+            </div>
+
+            <div style="float: right;">
+            <p>EMAIL</p>
+            <span class="rplc" data-value="mail">...</span>
+            </div>
+
+            </div>
+
+            <div class="info-perfil" style="margin-top:50px">
+
+            <h1>VEÍCULO</h1> <hr>
+
+            <div style="float: left">
+            <p>TIPO DE VEÍCULO</p>
+            <span class="rplc" data-value="veiculo">...</span>
+            </div>
+
+            <div style="float: right;">
+            <p>TIPO DE CARRETA</p>
+            <span class="rplc" data-value="carroceria">...</span>
+            </div>
+
+            </div>
+
+            <div class="info-perfil" style="margin-top:50px">
+
+            <h1>Senha</h1> <hr>
+
+            <div style="float: left">
+            <p>Senha</p>
+            <span>*********</span>
+
+            </div>
+
+            <div style="float: right">
+            <a href="alterarsenha.html"><input class="botao-dash" type="button" url="alterarsenha.html" value="Alterar senha" style="margin-top: 20px"></a>
+            </div>
+
+
+            </div>
+
+            <a href="editarperfil.html"><input class="botao-dash" type="button" url="editarperfil.html" value="Editar meu perfil" style="margin-top: 20px"></a>
+            <a href="#" class="sair"><input class="botao-dash" type="button" url="#" value="Sair" style="margin-top: 10px; background-color: #aaaaaa"></a>
+
+        </nav>
+
+        <menu>
+            
+                <ul>
+                    <li><a href="meuperfil.html" class="check"><i class="fa fa-user fa-2" style="font-size:17px;padding-bottom:2px"></i><br/> Meu perfil</a></li>
+                    <li><a href="cargas.html"><i class="fa fa-cube fa-2" style="font-size:17px;padding-bottom:2px"></i><br/>Ofertas de Carga</a></li>
+                    <li><a href="buscar.html"><i class="fa fa-search fa-2" style="font-size:17px;padding-bottom:2px"></i><br/>Buscar Cargas</a></li>
+                    <li><a href="faleconosco.html"><i class="fa fa-comment fa-2" style="font-size:17px;padding-bottom:2px"></i><br/>Fale conosco</a></li>
+                </ul>
+
+        </menu>
+
+    </body>
+
+
+</html>

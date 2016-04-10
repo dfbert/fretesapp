@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="FretesWeb!">
+    <meta name="author" content="Victor Nery">
+
+    <title>FretesWeb | Fretes para todo o Brasil</title>
+
+    <!-- CSS -->
+    <link href="css/estilo.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="scripts/GLOBAL.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        if(localStorage.getItem("logged") == "true"){
+            $("body").append("<div id=\"loading\" style=\"position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background-color: #2a2826; background-image: url('imagens/loading.gif'); background-size: 100% auto; background-repeat: no-repeat; background-position: center center; z-index:99999; \"></div>");
+            var mail = localStorage.getItem("mail");
+            var password = localStorage.getItem("password");
+            $.getJSON( config__apisite+"login.php", {mail: mail, password: password})
+            .complete(function( data ) {
+                if(typeof data.responseJSON == "undefined"){
+                    $("#loading").remove();
+                }
+                else if(typeof data.responseJSON['document'] != "undefined"){
+                    localStorage.setItem("id", data.responseJSON['id']);
+                    localStorage.setItem("document", data.responseJSON['document']);
+                    localStorage.setItem("name", data.responseJSON['name']);
+                    localStorage.setItem("veiculo", data.responseJSON['veiculo']);
+                    localStorage.setItem("carroceria", data.responseJSON['carroceria']);
+                    localStorage.setItem("telefone", data.responseJSON['telefone']);
+                    localStorage.setItem("avatar", data.responseJSON['avatar']);
+                    if(localStorage.getItem("gotoperfil") == "1"){
+                        localStorage.removeItem("gotoperfil");
+                        self.location.href = "meuperfil.html";
+                    }
+                    else{
+                        self.location.href = "cargas.html";
+                    }
+                }
+            });
+        }
+    });
+    </script>
+
+</head>
+
+    <body>
+
+        <nav class="container">
+        <div style="position: relative; bottom: 0 !important; left: 0;">
+        <a href="registro.html"><input class="botao-dash" type="button" url="registro.html" value="Quero me cadastrar" style="margin-top: 20px; background-color: #458181; color: #fff;"></a> <br />
+        <a href="entrar.html"><input class="botao-dash" type="button" url="entrar.html" value="Já tenho cadastro" style="margin-top: 5px; background: transparent; color: #458181;"></a>
+        </div>
+        </nav>
+
+       <!-- <menu>
+            
+                <ul>
+                    <li class="check"><a href="#"><i class="fa fa-user fa-2" style="font-size:17px;padding-bottom:2px"></i><br/> Meu perfil</a></li>
+                    <li><a href="#"><i class="fa fa-cube fa-2" style="font-size:17px;padding-bottom:2px"></i><br/>Ofertas de Carga</a></li>
+                    <li><a href="#"><i class="fa fa-search fa-2" style="font-size:17px;padding-bottom:2px"></i><br/>Buscar Cargas</a></li>
+                    <li><a href="#"><i class="fa fa-comment fa-2" style="font-size:17px;padding-bottom:2px"></i><br/>Fale conosco</a></li>
+                </ul>
+
+        </menu>-->
+
+    </body>
+
+
+</html>

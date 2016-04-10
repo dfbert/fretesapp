@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="FretesWeb!">
+    <meta name="author" content="Victor Nery">
+
+    <title>FretesWeb | Fretes para todo o Brasil</title>
+
+    <!-- CSS -->
+    <link href="css/estilo.css" rel="stylesheet">
+    <style>
+    .botao-dash {display: none;}
+    </style>
+
+    <!-- Custom Fonts -->
+    <link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="scripts/GLOBAL.js"></script>
+    <script type="text/javascript" src="scripts/validacpf.min.js"></script>
+    <script type="text/javascript" src="scripts/jquery.mask.js"></script>
+    <script type="text/javascript" src="scripts/veiculos.js"></script>
+    <script type="text/javascript">
+    var rs;
+
+    var geodata = [{"nome":"Acre","sigla":"AC"},{"nome":"Alagoas","sigla":"AL"},{"nome":"Amazonas","sigla":"AM"},{"nome":"Amapá","sigla":"AP"},{"nome":"Bahia","sigla":"BA"},{"nome":"Ceará","sigla":"CE"},{"nome":"Distrito Federal","sigla":"DF"},{"nome":"Espírito Santo","sigla":"ES"},{"nome":"Goiás","sigla":"GO"},{"nome":"Maranhão","sigla":"MA"},{"nome":"Minas Gerais","sigla":"MG"},{"nome":"Mato Grosso do Sul","sigla":"MS"},{"nome":"Mato Grosso","sigla":"MT"},{"nome":"Pará","sigla":"PA"},{"nome":"Paraíba","sigla":"PB"},{"nome":"Pernambuco","sigla":"PE"},{"nome":"Piauí","sigla":"PI"},{"nome":"Paraná","sigla":"PR"},{"nome":"Rio de Janeiro","sigla":"RJ"},{"nome":"Rio Grande do Norte","sigla":"RN"},{"nome":"Rondônia","sigla":"RO"},{"nome":"Roraima","sigla":"RR"},{"nome":"Rio Grande do Sul","sigla":"RS"},{"nome":"Santa Catarina","sigla":"SC"},{"nome":"Sergipe","sigla":"SE"},{"nome":"São Paulo","sigla":"SP"},{"nome":"Tocantins","sigla":"TO"}];
+    dict = {}
+    geodata.forEach(function(x) {
+        dict[x.nome] = x.sigla
+    });
+
+    $(document).ready(function(){
+        if(localStorage.getItem("logged") != "true"){
+            self.location.href = "home.html";
+        }
+        if(!localStorage.getItem("actual_frete")) self.location.href = "cargas.html";
+        var frete_id = localStorage.getItem("actual_frete");
+        localStorage.removeItem("actual_frete");
+        
+        $("body").append("<div id=\"loading\" style=\"position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background-color: #2a2826; background-image: url('imagens/loading.gif'); background-size: 100% auto; background-repeat: no-repeat; background-position: center center; z-index:99999; \"></div>");
+
+        $.getJSON(config__apisite+"view_frete.php", {id: frete_id, mail: localStorage.getItem("mail"), password: localStorage.getItem("password")})
+            .complete(function( data ) {
+
+                $("#loading").remove();
+                rs = data.responseJSON;
+
+                if(typeof rs == "undefined"){
+                    if(data.responseText == "incorrect_pass"){       
+                        localStorage.clear();
+                        self.location.href = "home.html";
+                    }
+                    console.log("erro....");
+                }
+
+
+                else if(typeof rs != "undefined"){
+                    $(".rplc").each(function(){
+                        var value = $(this).attr("data-value");
+                        if(value == "origem_estado"){
+                            if(rs[value] !== null && rs[value].length) value = dict[rs[value]];
+                            else value = '...';
+                        }
+                        else if(value == "destino_estado"){
+                            if(rs[value] !== null && rs[value].length) value = dict[rs[value]];
+                            else value = '...';
+                        }
+                        else if(value == "obs"){
+                            if(rs[value] !== null && rs[value].length) value = rs[value];
+                            else value = '...';
+                            if(value == "0") value = '...';
+                        }
+                        else if(value == "valor_frete"){
+                            if(rs[value] !== null) value = "R$"+rs[value];
+                            else value = '...';
+                        }
+                        else if(value == "peso_bruto"){
+                            if(rs[value] !== null) value = rs[value]+"Kg";
+                            else value = '...';
+                        }
+                        else if(value == "valor_por_peso"){
+                            if(rs.valor_frete !== null && rs.peso_bruto !== null) value = "R$"+(parseFloat(rs.valor_frete) / parseFloat(rs.peso_bruto))+" por Kg";
+                            else value = '...';
+                        }
+                        else if(value == "iframe_src"){
+                            $(this).attr("src", "https://www.google.com/maps/embed/v1/directions?origin="+rs.origem_cidade+", "+dict[rs.origem_estado]+"&destination="+rs.destino_cidade+", "+dict[rs.destino_estado]+"&key=AIzaSyDBQUsc4fP615ctFLS23ItW69zsWqvYiF4&zoom=6");
+                            value = '';
+                        }
+                        else if(value == "tipo_de_veiculo"){
+                            value = '';
+                            $(tipo_veiculos).each(function(){
+                                if(rs["veiculo__"+this.id] == 1){
+                                    value += this.nome+"<br />";
+                                }
+                            });
+                            value = value.slice(0,-6)
+                        }
+                        else if(value == "tipo_de_carroceria"){
+                            value = '';
+                            $(tipo_carrocerias).each(function(){
+                                if(rs["carroceria__"+this.id] == 1){
+                                    value += this.nome+"<br />";
+                                }
+                            });
+                            value = value.slice(0,-6)
+                        }
+                        else{
+                                    if(rs[value] !== null) value = rs[value];
+                                    else value = '...';
+                        }
+                        $(this).html(value);
+                    });
+                }
+
+                
+
+
+                $.getJSON(config__apisite+"frete_view_actions.php", {id: frete_id, mail: localStorage.getItem("mail"), password: localStorage.getItem("password")})
+                    .complete(function( data ) {
+                        var rss = data.responseJSON;
+                        if(typeof rss != "undefined"){
+                           if(rss.interesse == 0){
+                                $(".demonstrar-interesse").show();
+                           }
+                           if(rss.contraproposta == 0){
+                                $(".contraproposta").show();
+                           }
+                        }
+                });
+
+
+
+
+
+                $(".botao-dash").click(function(){
+                    if($(this).hasClass("contraproposta")){
+                        var value = prompt("Por favor digite o valor da sua proposta em R$", "");
+                        if (value != null) {                
+                            $.getJSON(config__apisite+"frete_actions.php", {action: "contraproposta", contraproposta_valor: value, id: frete_id, mail: localStorage.getItem("mail"), password: localStorage.getItem("password")})
+                            .complete(function( data ) {
+                                if(data.responseText = "ok"){
+                                    $(".demonstrar-interesse").remove();
+                                    $(".contraproposta").remove();
+                                }
+                            });
+
+                        }
+                                
+
+                    }
+                    if($(this).hasClass("demonstrar-interesse")){
+                        $.getJSON(config__apisite+"frete_actions.php", {action: "interesse", id: frete_id, mail: localStorage.getItem("mail"), password: localStorage.getItem("password")})
+                        .complete(function( data ) {
+                            if(data.responseText = "ok"){
+                                $(".demonstrar-interesse").remove();
+                            }
+                        });
+                    }
+                    if($(this).hasClass("entrar-em-contato")){
+
+                    }
+
+                });
+            }
+        );
+    });
+    </script>
+
+</head>
+
+    <body>
+
+        <header>
+            <nav class="container">
+                <a href="cargas.html" style="float:left;"><i class="fa fa-chevron-left"></i> Voltar</a>
+                <h1>Vizualizar frete</h1>
+            </nav>
+        </header>
+
+        <nav id="perfil" class="container">
+            <div class="principal" style="height: 450px;">
+                <div style="width: 100%; overflow: hidden; height: 300px;">
+                  <iframe data-value="iframe_src" class="rplc" width="100%"height="600"frameborder="0"style="border:0; margin-top: -150px;"> </iframe>
+                </div>
+
+                <div class="listaCargas" style="float: left; margin-left:1%; margin-top:10px; width: 39.6%"> 
+                    <h1 data-value="origem_estado" class="rplc" style="background: none;"></h1> 
+                    <h2 data-value="origem_cidade" class="rplc"></h2> 
+                    <p data-value="origem_pais" class="rplc"></p>
+                </div> 
+                <i class="fa fa-truck" style="transform:rotateY(180deg); -webkit-transform:rotateY(180deg); color: #dedede; font-size:20px; margin-top:30px;"></i> 
+                <i class="fa fa-arrow-right" style="color: #f4d117; word-wrap: break-word; margin: 60px 0 0 -18px; position: absolute;"></i> 
+
+                <div class="listaCargas" style="float: right; margin-top:10px; width:39.6%"> 
+                    <h1 data-value="destino_estado" class="rplc" style="background: none;"></h1> 
+                    <h2 data-value="destino_cidade" class="rplc"></h2> 
+                    <p data-value="destino_pais" class="rplc"></p>
+                </div>
+                <br />
+                <br />
+                <br />
+                <br />
+                <center>
+                <h1 style="color: green;" data-value="valor_frete" class="rplc">R$</h1>
+                </center>
+
+            </div>
+            <div class="info-perfil">
+                <div style="float: left">
+                <p>VALOR POR KM</p>
+                <span class="rplc" data-value="valor_por_km">...</span>
+                </div>
+
+                <div style="float: right; text-align: right;">
+                <p>VALOR POR PESO</p>
+                <span class="rplc" data-value="valor_por_peso">...</span>
+                </div>
+            </div>
+
+            <div class="info-perfil" style="margin-top:50px">
+                <div style="float: left">
+                <p>PEDÁGIO</p>
+                <span class="rplc" data-value="veiculo">...</span>
+                </div>
+
+                <div style="float: right; text-align: right;">
+                <p>MODALIDADE DA CARRETA</p>
+                <span class="rplc" data-value="carroceria">...</span>
+                </div>
+            </div>
+
+            <div class="info-perfil" style="margin-top:100px">
+                <div style="float: left">
+                <p>PESO BRUTO</p>
+                <span class="rplc" data-value="peso_bruto">...</span>
+                </div>
+
+                <div style="float: right; text-align: right;">
+                <p>TIPO DE CARGA</p>
+                <span class="rplc" data-value="carroceria">...</span>
+                </div>
+            </div>
+
+            <div class="info-perfil" style="margin-top:150px">
+                <div style="float: left">
+                <p>TIPO DE VEÍCULO</p>
+                <span class="rplc" data-value="tipo_de_veiculo">...</span>
+                </div>
+
+                <div style="float: right; text-align: right;">
+                <p>TIPO DE CARROCERIA</p>
+                <span class="rplc" data-value="tipo_de_carroceria">...</span>
+                </div>
+            </div>
+
+            <div class="info-perfil" style="margin-top:250px">
+                <div style="float: left">
+                <p>COLETA</p>
+                <span class="rplc" data-value="data_da_coleta">...</span>
+                </div>
+
+                <div style="float: right; text-align: right;">
+                <p>ENTREGA</p>
+                <span class="rplc" data-value="data_da_entrega">...</span>
+                </div>
+            </div>
+
+            <div class="info-perfil" style="margin-top:300px">
+                <div style="float: left">
+                <p>EMPRESA</p>
+                <span class="rplc" data-value="veiculo">...</span>
+                </div>
+
+                <div style="float: right; text-align: right;">
+                <p>CONTATO</p>
+                <span class="rplc" data-value="fone">...</span>
+                </div>
+            </div>
+
+            <div class="info-perfil" style="margin-top:350px">
+                <div style="float: left">
+                <p>OBSERVAÇÕES</p>
+                <span class="rplc" data-value="obs">...</span>
+                </div>
+            </div>
+
+
+
+            <input class="botao-dash contraproposta" type="button" value="Fazer contra oferta" style="margin-top: 10px">
+            <input class="botao-dash demonstrar-interesse" type="button" value="Demonstrar interesse" style="margin-top: 10px">
+            <input class="botao-dash entrar-em-contato" type="button" value="Entrar em contato" style="margin: 10px 0">
+
+        </nav>
+
+        <menu>
+            
+                <ul>
+                    <li><a href="meuperfil.html"><i class="fa fa-user fa-2" style="font-size:17px;padding-bottom:2px"></i><br/> Meu perfil</a></li>
+                    <li><a href="cargas.html" class="check"><i class="fa fa-cube fa-2" style="font-size:17px;padding-bottom:2px"></i><br/>Ofertas de Carga</a></li>
+                    <li><a href="buscar.html"><i class="fa fa-search fa-2" style="font-size:17px;padding-bottom:2px"></i><br/>Buscar Cargas</a></li>
+                    <li><a href="faleconosco.html"><i class="fa fa-comment fa-2" style="font-size:17px;padding-bottom:2px"></i><br/>Fale conosco</a></li>
+                </ul>
+
+        </menu>
+
+    </body>
+
+
+</html>

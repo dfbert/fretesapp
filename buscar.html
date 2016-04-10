@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="FretesWeb!">
+    <meta name="author" content="Victor Nery">
+
+    <title>FretesWeb | Fretes para todo o Brasil</title>
+
+    <!-- CSS -->
+    <link href="css/estilo.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="scripts/GLOBAL.js"></script>
+    <script type="text/javascript" src="scripts/jquery.mask.js"></script>
+    <script type="text/javascript" src="scripts/veiculos.js"></script>
+    <script type="text/javascript">
+    var geodata = [{"nome":"Acre","sigla":"AC"},{"nome":"Alagoas","sigla":"AL"},{"nome":"Amazonas","sigla":"AM"},{"nome":"Amapá","sigla":"AP"},{"nome":"Bahia","sigla":"BA"},{"nome":"Ceará","sigla":"CE"},{"nome":"Distrito Federal","sigla":"DF"},{"nome":"Espírito Santo","sigla":"ES"},{"nome":"Goiás","sigla":"GO"},{"nome":"Maranhão","sigla":"MA"},{"nome":"Minas Gerais","sigla":"MG"},{"nome":"Mato Grosso do Sul","sigla":"MS"},{"nome":"Mato Grosso","sigla":"MT"},{"nome":"Pará","sigla":"PA"},{"nome":"Paraíba","sigla":"PB"},{"nome":"Pernambuco","sigla":"PE"},{"nome":"Piauí","sigla":"PI"},{"nome":"Paraná","sigla":"PR"},{"nome":"Rio de Janeiro","sigla":"RJ"},{"nome":"Rio Grande do Norte","sigla":"RN"},{"nome":"Rondônia","sigla":"RO"},{"nome":"Roraima","sigla":"RR"},{"nome":"Rio Grande do Sul","sigla":"RS"},{"nome":"Santa Catarina","sigla":"SC"},{"nome":"Sergipe","sigla":"SE"},{"nome":"São Paulo","sigla":"SP"},{"nome":"Tocantins","sigla":"TO"}];
+    dict = {}
+    geodata.forEach(function(x) {
+        dict[x.nome] = x.sigla
+    });
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+
+    var yyyy = today.getFullYear();
+    if(dd<10){
+        dd='0'+dd
+    } 
+    if(mm<10){
+        mm='0'+mm
+    } 
+    var today = dd+'/'+mm+'/'+yyyy;
+    var cidades;
+
+    $(document).ready(function(){
+        if(localStorage.getItem("logged") != "true"){
+            self.location.href = "home.html";
+        }
+
+        $.getJSON( "scripts/cidades.json")
+            .complete(function( data ) {
+                cidades = data.responseJSON;
+            });
+
+        var estado_origem = $("select[name='estado_origem']");
+        var estado_destino = $("select[name='estado_destino']");
+
+        var cidade_origem = $("select[name='cidade_origem']");
+        var cidade_destino = $("select[name='cidade_destino']");
+
+        $(geodata).each(function(){
+            estado_origem.append("<option value='"+this.nome+"'>"+this.nome+"</option>");
+            estado_destino.append("<option value='"+this.nome+"'>"+this.nome+"</option>");
+        });
+
+        estado_origem.change(function() {
+            cidade_origem.html('<option disabled selected>Cidade</option>');
+            var val = $(this).val();
+            $(cidades.estados).each(function(){
+                if(this.nome == val){
+                   $(this.cidades).each(function(){
+                        cidade_origem.append("<option value='"+this+"'>"+this+"</option>");
+                   });
+                }
+            });
+        });
+
+        estado_destino.change(function() {
+            cidade_destino.html('<option disabled selected>Cidade</option>');
+            var val = $(this).val();
+            $(cidades.estados).each(function(){
+                if(this.nome == val){
+                   $(this.cidades).each(function(){
+                        cidade_destino.append("<option value='"+this+"'>"+this+"</option>");
+                   });
+                }
+            });
+        });
+
+        $(tipo_veiculos).each(function(){
+            $("select[name='veiculo'").append("<option style='text-transform:capitalize;' value='"+this.id+"'> "+this.nome+"</option>");
+        });
+        $(tipo_carrocerias).each(function(){
+            $("select[name='carroceria'").append("<option style='text-transform:capitalize;' value='"+this.id+"'> "+this.nome+"</option>");
+        });
+        $(".botao-dash").click(function(){
+            var val = $("form").serialize();
+            localStorage.setItem("search_query", val);
+            self.location.href = 'busca_resultado.html';
+        });
+    });
+    </script>
+</head>
+
+    <body>
+
+        <header>
+            <nav class="container">
+               <!-- <a href="#" style="float:left;"><i class="fa fa-chevron-left"></i> Voltar</a>-->
+                <h1>Buscar carga</h1>
+                <!--<a href="#" style="float:right;">Atualizar</a>-->
+            </nav>
+        </header>
+
+        <nav class="container">
+            <div class="buscarCargas">
+                <p style="font-family: 'Myriad Pro Regular'; color: #a6a6a6;">Amigo caminhoneiro, escolha pelo menos um ESTADO e CIDADE de Origem e Destino e as informações do seu VEÍCULO para buscar o próximo frete.</p> <br />
+                <div style="width:80%; margin: 0 auto;">
+                <h1>Origem</h1>
+                <form>
+                <select name="estado_origem">
+                    <option disabled selected>Estado</option>
+                </select>
+                 <select name="cidade_origem">
+                    <option disabled selected>Cidade</option>
+                </select>
+
+                <div style="margin-top:20px">
+                <h1>Destino</h1>
+                <select name="estado_destino">
+                    <option disabled selected>Estado</option>
+                </select>
+                 <select name="cidade_destino">
+                    <option disabled selected>Cidade</option>
+                </select>
+
+
+                <div style="margin-top:20px">
+                <h1>Veículos</h1>
+
+                <select name="veiculo">
+                    <option disabled selected>Tipo de Veículo</option>
+                </select>
+                <select name="carroceria">
+                    <option disabled selected>Tipo de Carroceria</option>
+                </select>
+                </form>
+    </div>
+    </div>
+            </div>
+    <a href="#"><input class="botao-dash" type="button" url="#" value="Buscar" style="color: white; margin-top: 20px; background: #458181; font-family: 'Myriad Pro Regular';"></a>
+        </nav>
+
+        <menu>
+            
+                <ul>
+                    <li><a href="meuperfil.html"><i class="fa fa-user fa-2" style="font-size:17px;padding-bottom:2px"></i><br/> Meu perfil</a></li>
+                    <li><a href="cargas.html"><i class="fa fa-cube fa-2" style="font-size:17px;padding-bottom:2px"></i><br/>Ofertas de Carga</a></li>
+                    <li><a href="buscar.html" class="check"><i class="fa fa-search fa-2" style="font-size:17px;padding-bottom:2px"></i><br/>Buscar Cargas</a></li>
+                    <li><a href="faleconosco.html"><i class="fa fa-comment fa-2" style="font-size:17px;padding-bottom:2px"></i><br/>Fale conosco</a></li>
+                </ul>
+
+        </menu>
+
+    </body>
+
+
+</html>

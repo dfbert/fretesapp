@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta name="viewport"content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" /> 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="FretesWeb!">
+    <meta name="author" content="Victor Nery">
+
+    <title>FretesWeb | Fretes para todo o Brasil</title>
+
+    <!-- CSS -->
+    <link href="css/estilo.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="scripts/GLOBAL.js"></script>
+    <script type="text/javascript" src="scripts/validacpf.min.js"></script>
+    <script type="text/javascript" src="scripts/jquery.mask.js"></script>
+    <script type="text/javascript" src="scripts/veiculos.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+            $(tipo_veiculos).each(function(){
+                $("select[name='veiculo'").append("<option style='text-transform:capitalize;' value='"+this.id+"'> "+this.nome+"</option>");
+            });
+            $(tipo_carrocerias).each(function(){
+                $("select[name='carroceria'").append("<option style='text-transform:capitalize;' value='"+this.id+"'> "+this.nome+"</option>");
+            });
+
+            $('input[name="document"]').mask('000.000.000-00', {reverse: false});
+
+            $(".input-block").each(function(){
+                var typingTimer;                //timer identifier
+                var doneTypingInterval = 0;  //time in ms, 5 second for example
+                var $input = $(this);
+
+                var name = $input.attr("name");
+
+                $input.on('keyup', function () {
+                 doneTyping();
+                });
+
+                $input.on('change', function () {
+                 doneTyping();
+                });
+
+                //on keydown, clear the countdown 
+               /* $input.on('keydown', function () {
+                  clearTimeout(typingTimer);
+                });*/
+
+                //user is "finished typing," do something
+                function doneTyping () {
+                    var val = $input.val();
+                    $input.removeClass("input-wrong");
+                    $input.removeClass("input-right");
+                    if(name == "document"){
+                        if(validarCPF(val.replace(/[^0-9]/g, ''))){
+                            $input.addClass("input-right");
+                        }
+                        else{
+                            $input.addClass("input-wrong");
+                        }
+                    }
+                    if(name == "name"){
+                        val = $.trim(val);
+                        if(val.length > 3 && /^[a-zA-Z\u00C0-\u00ff]+$/.test(val.replace(" ", "")) && /\s/.test(val)) {
+                            $input.addClass("input-right");
+                        }
+                        else{
+                            $input.addClass("input-wrong");
+                        }
+                    }
+                    if(name == "mail"){
+                        if(/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(val)){
+                            $input.addClass("input-right");
+                        }
+                        else{
+                            $input.addClass("input-wrong");
+                        }
+                    }
+                    if(name == "password"){
+                        if(val.length > 5){
+                            $input.addClass("input-right");
+                        }
+                        else{
+                            $input.addClass("input-wrong");
+                        }
+                    }
+                    if(name == "veiculo" || name == "carroceria"){
+                        if(val !== null){
+                             $input.addClass("input-right");
+                        }
+                    }
+                }
+            });
+            $(".submit").click(function(){
+                var passed = true;
+                $(".input-block").each(function(){
+                    if(!$(this).hasClass("input-right")){
+                        $(this).attr("class", "input-block input-wrong");
+                        passed = false;
+                    }
+                });
+                if(passed === true){
+                    $("body").append("<div id=\"loading\" style=\"position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background-color: #2a2826; background-image: url('imagens/loading.gif'); background-size: 100% auto; background-repeat: no-repeat; background-position: center center; z-index:99999; \"></div>");
+                    $.post( config__apisite+"register.php", $( ".registro form" ).serialize())
+                        .done(function( data ) {
+                            $("#loading").remove();
+                            if(data == "email_in_use"){
+                                $("input[name='mail']").removeClass("input-right");
+                                $("input[name='mail']").addClass("input-wrong");
+                                alert("E-mail em uso")
+                            }
+                            else if(data == "cpf_in_use"){
+                                $("input[name='document']").removeClass("input-right");
+                                $("input[name='document']").addClass("input-wrong");
+                                alert("CPF em uso")
+                            }
+                            else if(data == "ok"){
+                                localStorage.setItem("logged", true);
+                                localStorage.setItem("name", $("input[name='name']").val());
+                                localStorage.setItem("document", $("input[name='document']").val());
+                                localStorage.setItem("mail", $("input[name='mail']").val());
+                                localStorage.setItem("password", $("input[name='password']").val());
+                                self.location.href = "home.html";
+                            }
+                            else{
+                                alert("Erro: "+data);
+                            }
+                        });
+                }
+            });
+        });
+    </script>
+
+</head>
+
+    <body>
+
+    <header>
+            <nav class="container">
+                <a href="home.html" style="float:left;"><i class="fa fa-chevron-left"></i> Voltar</a>
+                <center><h1>Cadastre-se</h1></center>
+               <!-- <a href="#" style="float:right;">Atualizar</a>-->
+            </nav>
+        </header>
+
+        <nav class="container">
+            <div class="registro">
+            <form>
+                <center>
+                <input type="text" class="input-block" name="name" placeholder="Nome completo">
+                <input type="text" pattern="\d*" class="input-block" name="document" placeholder="CPF">
+                <input type="text" class="input-block" name="mail" placeholder="E-mail">
+                <select class="input-block" name="veiculo">
+                    <option selected disabled value="0">Tipo do veículo</option>
+                </select>
+                <select class="input-block" name="carroceria">
+                    <option selected disabled value="0">Tipo da carroceria</option>
+                </select>
+                <input class="input-block" name="password" type="password" placeholder="Senha">
+                </center>
+                <a href="#"><input class="botao-dash" type="button" url="#" onclick="return false;"  value="Política de privacidade" style="margin-top: 20px; background: transparent; color: #458181; font-family: 'Myriad Pro Regular'"></a>
+                <a class="submit" href="#"><input class="botao-dash" onclick="return false;" type="button" url="#" value="Continuar" style="margin-top: 5px; background-color: #458181; color: #fff;"></a>
+            </form>
+            </div>
+        </nav>
+
+       <!-- <menu>
+            
+                <ul>
+                    <li class="check"><a href="#"><i class="fa fa-user fa-2" style="font-size:17px;padding-bottom:2px"></i><br/> Meu perfil</a></li>
+                    <li><a href="#"><i class="fa fa-cube fa-2" style="font-size:17px;padding-bottom:2px"></i><br/>Ofertas de Carga</a></li>
+                    <li><a href="#"><i class="fa fa-search fa-2" style="font-size:17px;padding-bottom:2px"></i><br/>Buscar Cargas</a></li>
+                    <li><a href="#"><i class="fa fa-comment fa-2" style="font-size:17px;padding-bottom:2px"></i><br/>Fale conosco</a></li>
+                </ul>
+
+        </menu>-->
+
+    </body>
+
+
+</html>

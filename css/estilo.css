@@ -1,0 +1,224 @@
+/* FretesWEB.css */
+
+/* Inicialização do CSS Reset */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/*
+
+	Fim do CSS Reset e início do conteúdo padrão e fontes.
+
+	Estes serão imutáveis.
+
+ */
+
+
+body {
+	background-color: #f6f6f6;
+	font-family:'Myriad Pro Regular';
+	font-weight:normal;
+}
+
+.container {
+		padding: 15px;
+		margin-right:auto;
+		margin-left:auto;
+	}
+
+@font-face {
+font-family: 'Myriad Pro Regular';
+font-style: normal;
+font-weight: normal;
+src: local('Myriad Pro Regular'), url('fontes/MYRIADPRO-REGULAR.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Myriad Pro Condensed';
+font-style: normal;
+font-weight: normal;
+src: local('Myriad Pro Condensed'), url('fontes/MYRIADPRO-COND.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Myriad Pro Semibold Italic';
+font-style: normal;
+font-weight: normal;
+src: local('Myriad Pro Semibold Italic'), url('fontes/MYRIADPRO-SEMIBOLDIT.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Myriad Pro Semibold';
+font-style: normal;
+font-weight: normal;
+src: local('Myriad Pro Semibold'), url('fontes/MYRIADPRO-SEMIBOLD.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Myriad Pro Condensed Italic';
+font-style: normal;
+font-weight: normal;
+src: local('Myriad Pro Condensed Italic'), url('fontes/MYRIADPRO-CONDIT.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Myriad Pro Bold Italic';
+font-style: normal;
+font-weight: normal;
+src: local('Myriad Pro Bold Italic'), url('fontes/MYRIADPRO-BOLDIT.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Myriad Pro Bold Condensed Italic';
+font-style: normal;
+font-weight: normal;
+src: local('Myriad Pro Bold Condensed Italic'), url('fontes/MYRIADPRO-BOLDCONDIT.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Myriad Pro Bold Condensed';
+font-style: normal;
+font-weight: normal;
+src: local('Myriad Pro Bold Condensed'), url('fontes/MYRIADPRO-BOLDCOND.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Myriad Pro Bold';
+font-style: normal;
+font-weight: normal;
+src: local('Myriad Pro Bold'), url('fontes/MYRIADPRO-BOLD.woff') format('woff');
+}
+
+	menu {
+		background: #000;
+		color: #fff;
+		width:100%;
+		bottom:0;
+		left: 0;
+		position: fixed;
+		padding-top:5px;
+		padding-bottom:5px;
+	}
+	menu ul {
+		padding: 0px;
+		margin: 0px;
+		width:100%;
+		height:auto;
+		list-style-type: none;
+		float:left;
+		overflow: hidden;
+	}
+	menu ul li {
+		float: left;
+		display:inline;
+		width:25%;
+		text-align:center;
+
+	}
+	menu ul li a {
+		color: #fff;
+		font-size:10px;
+		text-decoration: none;
+		display: inline-block;
+	}
+	menu ul li a span {white-space: nowrap;}
+	.fa {text-align: center;white-space: nowrap;}
+	.check {color: #5CCECE;}
+
+	header {width:100%; background-color: #458181; height:42px;margin-bottom:10px; font-family: "Myriad Pro Regular";border-bottom:1px solid #648E8E; color: #ffffff;}
+	header a {color: #ffffff;text-decoration:none; font-size:15px; float:left;z-index:4 !important; position:relative;}
+	header h1 {z-index:1 !important;font-family: "Myriad Pro Semibold"; font-size:16px;text-align:center !important;position:absolute;margin-left:auto;margin-right:auto;left:0;right:0;}
+
+	/* Perfil */
+
+	#perfil .principal {text-align:center;}
+	#perfil .principal h1 {font-size:27px;letter-spacing:-2px;margin-top:10px;padding-bottom:10px;}
+	.info-perfil h1 {color: #458181; text-transform:uppercase; font-size:12px;}
+	.info-perfil hr {border:1px solid #dadada;margin:0;}
+	.info-perfil p {color: #8b8b8b; text-transform: uppercase; font-size:12px; margin-top:5px;}
+	.info-perfil span {color: #272727; font-size:15px; font-family: "Myriad Pro Semibold";}
+	.botao-dash {background-color: #ececec; color: #8b8b8b; font-family: "Myriad Pro Semibold"; font-size:15px;width:100%; padding:20px; border: 0; cursor: pointer;}
+
+	/* Buscar Cargas */
+	.buscarCargas h1 {font-family: "Myriad Pro Semibold"; color: #b5b5b5;}
+	.buscarCargas select {width:95%; margin: 0 auto;margin-top:10px;height: 35px;background: #fff !important;color:#8b8b8b;border:1px solid #c5c5c5; border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;}
+	nav {margin-bottom:30px;}
+
+	/* Fale Conosco */
+
+	.faleConosco p {color: #a0a0a0; font-size:15px; text-align: center;}
+	.faleConosco h1 {font-family: "Myriad Pro Semibold"; color: #000; text-align: center;}
+	.faleConosco .light-gray {background: #e2e2e2;margin:0 auto; width:80%; color: #505050;padding:10px;text-align:center;border-radius:10px; -webkit-border-radius:10px; -moz-border-radius:10px;}
+	.fa-star:hover {color:#f4d01a;}
+
+	/* Ofertas de Cargas */
+
+	.listaCargas {text-align: center; text-transform: uppercase;}
+	.listaCargas h1 {color: #6b6b6b; font-family: "Myriad Pro Bold"; font-size:100%; padding:7px; border-radius:100%; -webkit-border-radius: 100%; -moz-border-radius: 100%; text-align:center; margin: 0 auto;}
+	.listaCargas h2 {color: #535353; font-size:82%; font-family: "Myriad Pro Condensed"; margin-top:5px;}
+	.listaCargas p {font-family: "Myriad Pro Semibold"; color: #b4b4b4; font-size:14px;margin-top:2px;}
+
+	/* Demais páginas */
+	.telefone p, .bemvindo p, .buscarCargas p {text-align: center; font-family:"Myriad Pro Regular";}
+	.input-block, .registro select {outline: none; width:85%; margin: 0 auto;height: 35px;background: #fff !important;color:#8b8b8b;border:1px solid #c5c5c5; border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px; padding-left:5%; font-family: "Myriad Pro Bold"; font-size:12px; margin-top:10px;}
+	.input-wrong {border:1px solid red !important;}
+	.input-right {border:1px solid green !important;}
+	.registro select {width:90% !important;}
+	.bemvindo i {background: #333333; -webkit-border-radius:100%; color:#5ccece; padding:12px; font-size:25px; width:25px;}
+	.bemvindo li {margin-top:50px;}
+	.bemvindo li:first-child {margin-top:10px;}
+	.bemvindo li:last-child {margin-bottom:50px;}
+	.bemvindo li p {width:80%; float: right;padding-top:10px; text-align:left; color: #090909; font-family: "Myriad Pro Regular";}
+	.botao-dash-2 {background-color: #ececec; color: #8b8b8b; font-family: "Myriad Pro Semibold"; font-size:15px;width:100%; padding:10px; border: 0; cursor: pointer;}
+	.favCargas { color: #b4b4b4;}
+	.cargasUlLi li {padding-bottom:25px; border-bottom:1px solid #dadada; width:100%;}
+	*{outline: none !important;}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="FretesWeb!">
+    <meta name="author" content="Victor Nery">
+
+    <title>FretesWeb | Fretes para todo o Brasil</title>
+
+    <!-- CSS -->
+    <link href="css/estilo.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="scripts/GLOBAL.js"></script>
+    <script type="text/javascript" src="scripts/jquery.mask.js"></script>
+    <script type="text/javascript" src="scripts/veiculos.js"></script>
+    <script type="text/javascript">
+    var rs;
+    var geodata = [{"nome":"Acre","sigla":"AC"},{"nome":"Alagoas","sigla":"AL"},{"nome":"Amazonas","sigla":"AM"},{"nome":"Amapá","sigla":"AP"},{"nome":"Bahia","sigla":"BA"},{"nome":"Ceará","sigla":"CE"},{"nome":"Distrito Federal","sigla":"DF"},{"nome":"Espírito Santo","sigla":"ES"},{"nome":"Goiás","sigla":"GO"},{"nome":"Maranhão","sigla":"MA"},{"nome":"Minas Gerais","sigla":"MG"},{"nome":"Mato Grosso do Sul","sigla":"MS"},{"nome":"Mato Grosso","sigla":"MT"},{"nome":"Pará","sigla":"PA"},{"nome":"Paraíba","sigla":"PB"},{"nome":"Pernambuco","sigla":"PE"},{"nome":"Piauí","sigla":"PI"},{"nome":"Paraná","sigla":"PR"},{"nome":"Rio de Janeiro","sigla":"RJ"},{"nome":"Rio Grande do Norte","sigla":"RN"},{"nome":"Rondônia","sigla":"RO"},{"nome":"Roraima","sigla":"RR"},{"nome":"Rio Grande do Sul","sigla":"RS"},{"nome":"Santa Catarina","sigla":"SC"},{"nome":"Sergipe","sigla":"SE"},{"nome":"São Paulo","sigla":"SP"},{"nome":"Tocantins","sigla":"TO"}];
+    dict = {}
+    geodata.forEach(function(x) {
+        dict[x.nome] = x.sigla
+    });
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+
+    var yyyy = today.getFullYear();
+    if(dd<10){
+        dd='0'+dd
+    } 
+    if(mm<10){
+        mm='0'+mm
+    } 
+    var today = dd+'/'+mm+'/'+yyyy;
+
+
+    $(document).ready(function(){
+        if(!localStorage.getItem("search_query")) self.location.href = "buscar.html";
+        var query = localStorage.getItem("search_query");
+        localStorage.removeItem("search_query");
+        if(localStorage.getItem("logged") != "true"){
+            self.location.href = "home.html";
+        }
+        $("body").append("<div id=\"loading\" style=\"position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background-color: #2a2826; background-image: url('imagens/loading.gif'); background-size: 100% auto; background-repeat: no-repeat; background-position: center center; z-index:99999; \"></div>");
+
+        $.getJSON( config__apisite+"view_fretes.php?search=true&"+query, {mail: localStorage.getItem("mail"), password: localStorage.getItem("password")})
+            .complete(function( data ) {
+                rs = data.responseJSON;
+                if(typeof rs == "undefined"){
+                    $("#loading").remove();
+                    if(data.responseText == "incorrect_pass"){       
+                        localStorage.clear();
+                        self.location.href = "home.html";
+                    }
+                    alert("erro....");
+                }
+                else if(typeof rs != "undefined"){
+                    var i = 0;
+                    $(rs).each(function(){
+                        var actual = rs[i];
+                        i++;
+                        $("ul.cargasUlLi").append('<li data-id="'+actual.id+'"> <br /><i class="fa fa-times-circle-o" style="color: #969696; font-size: 20px; float: left;"></i> <div class="listaCargas" style="float: left; margin-left:1%; margin-top:10px; width: 39.6%"> <h1>'+dict[actual.origem_estado]+'</h1> <h2>'+actual.origem_cidade+'</h2> <p>BRASIL</p> <p style="font-size:9px; font-family: \'Myriad Pro Regular\' ">coleta '+actual.data_da_coleta+' <span class="coleta_hoje" style="display:none; background-color: #348f30; color: #fff; padding-left:5px; padding-right:5px; padding-top:1px;padding-bottom:1px;font-size:5px; margin: 0 auto; border-radius: 3px; -webkit-border-radius:3px; -moz-border-radius: 3px;">hoje</span></p> </div> <i class="fa fa-truck" style="transform:rotateY(180deg); -webkit-transform:rotateY(180deg); color: #dedede; font-size:20px; margin-top:10px;float:left"></i> <i class="fa fa-arrow-right" style="color: #f4d117; word-wrap: break-word; float:left;margin-top:40px; margin-left:-15px"></i> <div class="listaCargas" style="float: left; margin-top:10px; width:39.6%"> <h1>'+dict[actual.destino_estado]+'</h1> <h2>'+actual.destino_cidade+'</h2> <p>BRASIL</p> <p style="font-size:9px; font-family: \'Myriad Pro Regular\' ">entrega '+actual.data_da_entrega+' <span class="entrega_hoje" style="display:none; background-color: #348f30; color: #fff; padding-left:5px; padding-right:5px; padding-top:1px;padding-bottom:1px;font-size:5px; margin: 0 auto; border-radius: 3px; -webkit-border-radius:3px; -moz-border-radius: 3px;">hoje</span></p> </div> <i class="fa fa-thumbs-up" style="color: #49a747; font-size: 10px; padding:3px; float: right; border-radius:50%;border:1.5px solid #49a747;"></i> <div class="favCargas" style="padding-top:90px !important"> <p style="float:left; font-size:10px; margin-left:20px"><i class="fa fa-road"></i> xxx Km</p> <p style="float:left; font-size:10px;margin-left:20px"><i class="fa fa-balance-scale"></i> '+actual.peso_bruto+'Kg</p> <h1 style="float: right; color: #45894c; font-size:20px; font-family: \'Myriad Pro Semibold\'">R$'+actual.valor_frete+'</h1> </div> </li>');
+                        if(actual.data_da_coleta == today) $("li[data-id='"+actual.id+"'] .coleta_hoje").show();
+                        if(actual.data_da_entrega == today) $("li[data-id='"+actual.id+"'] .entrega_hoje").show();
+                    });
+                    if(!rs.length){
+                        $("ul.cargasUlLi").html("<center>Nenhum frete encontrado</center>");
+                    }
+                    $("#loading").remove();
+                }
+            });
+
+    });
+    </script>
+
+
+</head>
+<style>header {margin-bottom: 0px}</style>
+    <body>
+
+    <header>
+            <nav class="container">
+               <!-- <a href="#" style="float:left;"><i class="fa fa-chevron-left"></i> Voltar</a>-->
+                <h1>Ofertas de Carga</h1>
+                <a href="buscar.html" style="float:right;"><i class="fa fa-arrow-left"></i> Voltar</a>
+            </nav>
+        </header>
+
+        <nav class="container">
+            <ul class="cargasUlLi" style="width: 100%">
+            </ul>
+        </nav>
+
+        <menu>
+            
+                <ul class="ulCargas">
+                    <li>
+                    <a href="meuperfil.html"><i class="fa fa-user fa-2" style="font-size:17px;padding-bottom:2px"></i><br/> Meu perfil</a></li>
+                    <li><a href="cargas.html" class="check"><i class="fa fa-cube fa-2" style="font-size:17px;padding-bottom:2px"></i><br/>Ofertas de Carga</a></li>
+                    <li><a href="buscar.html"><i class="fa fa-search fa-2" style="font-size:17px;padding-bottom:2px"></i><br/>Buscar Cargas</a></li>
+                    <li><a href="faleconosco.html"><i class="fa fa-comment fa-2" style="font-size:17px;padding-bottom:2px"></i><br/>Fale conosco</a>
+                    </li>
+                </ul>
+
+        </menu>
+
+    </body>
+
+
+</html>
