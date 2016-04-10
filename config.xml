@@ -6,14 +6,14 @@
         id        = "com.dfbert.inst.fretesweb"
         version   = "1.0">
 
-    <name>Seekar</name>
+    <name>Fretes WEB</name>
 
     <description>
        Rastreamento de veículos
     </description>
 
-    <author href="http://dfbert.com" email="contato@dfbert.com">
-        Daniel Bertollotto
+    <author href="http://bncodes.com" email="contato@bncodes.com">
+        BN Codes
     </author>
 
     <!--
