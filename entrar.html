@@ -29,7 +29,8 @@
             .complete(function( data ) {
                 if(typeof data.responseJSON == "undefined"){
                     $("#loading").remove();
-                    alert("Dados incorretos");
+                    alert(data);
+
                 }
                 else if(typeof data.responseJSON['document'] != "undefined"){
                     localStorage.setItem("id", data.responseJSON['id']);
