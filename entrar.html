@@ -29,7 +29,8 @@
             .complete(function( data ) {
                 if(typeof data.responseJSON == "undefined"){
                     $("#loading").remove();
-                    alert(data);
+                    alert(JSON.stringify(data));
+
 
                 }
                 else if(typeof data.responseJSON['document'] != "undefined"){
