@@ -55,7 +55,7 @@
                 if(typeof rs == "undefined"){
                     $("#loading").remove();
                     if(data.responseText == "incorrect_pass"){       
-                        localStorage.clear();
+                        clearAll();
                         self.location.href = "home.html";
                     }
                     alert("erro....");

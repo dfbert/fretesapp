@@ -10,10 +10,10 @@
     <meta name="author" content="Victor Nery">
 
     <script type="text/javascript">
-    if (sessionStorage.welcome) {
+    if(localStorage.getItem("welcome") == "true"){
     self.location.href = "home.html"
 } else {
-    sessionStorage.welcome = 1;
+     localStorage.setItem("welcome", true);
     self.location.href = "welcome.html"
 }
     </script>

@@ -53,7 +53,7 @@
 
                 if(typeof rs == "undefined"){
                     if(data.responseText == "incorrect_pass"){       
-                        localStorage.clear();
+                        clearAll();
                         self.location.href = "home.html";
                     }
                     console.log("erro....");
