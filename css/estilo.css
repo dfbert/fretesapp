@@ -221,4 +221,4 @@ src: local('Myriad Pro Bold'), url('fontes/MYRIADPRO-BOLD.woff') format('woff');
 	.botao-dash-2 {background-color: #ececec; color: #8b8b8b; font-family: "Myriad Pro Semibold"; font-size:15px;width:100%; padding:10px; border: 0; cursor: pointer;}
 	.favCargas { color: #b4b4b4;}
 	.cargasUlLi li {padding-bottom:25px; border-bottom:1px solid #dadada; width:100%;}
-	*{outline: none !important;}
+	*{outline: none !important; -webkit-appearance:none !important; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-tap-highlight-color: transparent; /* For some Androids */}
