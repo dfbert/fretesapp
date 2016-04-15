@@ -11,9 +11,9 @@
     <description>
        Rastreamento de veículos
     </description>
-
-    <author href="http://bncodes.com" email="contato@bncodes.com">
-        BN Codes
+    
+    <author href="http://dfbert.com" email="contato@dfbert.com">
+        Daniel Fabricio
     </author>
 
     <!--
@@ -40,14 +40,8 @@
         <gap:plugin name="Example" />
         A list of available plugins are available at https://build.phonegap.com/docs/plugins
     -->
-    <plugin name="cordova-plugin-whitelist" />
-    <!--
-        Define access to external domains.
-        <access />            - a blank access tag denies access to all external resources.
-        <access origin="*" /> - a wildcard access tag allows access to all external resource.
-        Otherwise, you can specify specific domains:
-    -->
-    <access origin="http://fretesweb.com.br" subdomains="true" /> <!-- allow local pages -->
+    
+    <preference name="phonegap-version"           value="3.7.0" />   
     <!--
         <access origin="http://phonegap.com" />                    - allow any secure requests to http://phonegap.com/
         <access origin="http://phonegap.com" subdomains="true" />  - same as above, but including subdomains, such as http://build.phonegap.com/
