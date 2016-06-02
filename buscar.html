@@ -88,10 +88,10 @@
         });
 
         $(tipo_veiculos).each(function(){
-            $("select[name='veiculo'").append("<option style='text-transform:capitalize;' value='"+this.id+"'> "+this.nome+"</option>");
+            $("select[name='veiculo']").append("<option style='text-transform:capitalize;' value='"+this.id+"'> "+this.nome+"</option>");
         });
         $(tipo_carrocerias).each(function(){
-            $("select[name='carroceria'").append("<option style='text-transform:capitalize;' value='"+this.id+"'> "+this.nome+"</option>");
+            $("select[name='carroceria']").append("<option style='text-transform:capitalize;' value='"+this.id+"'> "+this.nome+"</option>");
         });
         $(".botao-dash").click(function(){
             var val = $("form").serialize();
