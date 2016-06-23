@@ -15,6 +15,11 @@
 
     <!-- Custom Fonts -->
     <link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <style>
+    input[name='document_cnpj']{
+        opacity: 0.6;
+    }
+    </style>
 
     <!-- Scripts -->
     <script type="text/javascript" src="scripts/jquery.min.js"></script>
@@ -33,6 +38,16 @@
             });
 
             $('input[name="document"]').mask('000.000.000-00', {reverse: false});
+            $('input[name="document_cnpj"]').mask('00.000.000/0000-00', {reverse: true});
+            $('input[name="placa"]').mask('SSS-0000', {
+            'translation': {
+                S: {pattern: /[A-Za-z]/},
+                0: {pattern: /[0-9]/}
+            }
+            ,onKeyPress: function (value, event) {
+                event.currentTarget.value = value.toUpperCase();
+            }
+            });
 
             $(".input-block").each(function(){
                 var typingTimer;                //timer identifier
@@ -55,6 +70,7 @@
                 });*/
 
                 //user is "finished typing," do something
+                var deleted = false;
                 function doneTyping () {
                     var val = $input.val();
                     $input.removeClass("input-wrong");
@@ -62,10 +78,27 @@
                     if(name == "document"){
                         if(validarCPF(val.replace(/[^0-9]/g, ''))){
                             $input.addClass("input-right");
+                            $("input[name='document_cnpj']").remove();
+                            $("input[name='type']").val('cpf');
                         }
                         else{
                             $input.addClass("input-wrong");
                         }
+                    }
+                    if(name == "document_cnpj"){
+                            if(validarCNPJ(val.replace(/[^0-9]/g, ''))){
+                                $input.addClass("input-right");
+                                $("input[name='type']").val('cnpj');
+                        if(!deleted){
+                            $("input[name='document']").remove();
+                            $input.attr("name", "document");
+                            $('input[name="document"]').mask('00.000.000/0000-00', {reverse: true});
+                            deleted = true;
+                        }
+                            }
+                            else{
+                                $input.addClass("input-wrong");
+                            }
                     }
                     if(name == "name"){
                         val = $.trim(val);
@@ -92,9 +125,17 @@
                             $input.addClass("input-wrong");
                         }
                     }
-                    if(name == "veiculo" || name == "carroceria"){
+                    if(name == "veiculo" || name == "carroceria" || name == "antt"){
                         if(val !== null){
                              $input.addClass("input-right");
+                        }
+                    }
+                    if(name == "placa"){
+                        if(val.length > 7){
+                            $input.addClass("input-right");
+                        }
+                        else{
+                            $input.addClass("input-wrong");
                         }
                     }
                 }
@@ -151,12 +192,14 @@
             </nav>
         </header>
 
+        
         <nav class="container">
             <div class="registro">
             <form>
                 <center>
                 <input type="text" class="input-block" name="name" placeholder="Nome completo">
                 <input type="text" pattern="\d*" class="input-block" name="document" placeholder="CPF">
+                <input type="text" pattern="\d*" class="input-block" name="document_cnpj" placeholder="CNPJ (Opcional)">
                 <input type="text" class="input-block" name="mail" placeholder="E-mail">
                 <select class="input-block" name="veiculo">
                     <option selected disabled value="0">Tipo do veículo</option>
@@ -164,6 +207,8 @@
                 <select class="input-block" name="carroceria">
                     <option selected disabled value="0">Tipo da carroceria</option>
                 </select>
+                <input type="text" class="input-block" name="placa" placeholder="Nº da Placa">
+                <input type="text" class="input-block" name="antt" placeholder="Nº ANTT">
                 <input class="input-block" name="password" type="password" placeholder="Senha">
                 </center>
                 <a href="#"><input class="botao-dash" type="button" url="#" onclick="return false;"  value="Política de privacidade" style="margin-top: 20px; background: transparent; color: #458181; font-family: 'Myriad Pro Regular'"></a>

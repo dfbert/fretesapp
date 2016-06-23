@@ -39,6 +39,9 @@
                     localStorage.setItem("carroceria", data.responseJSON['carroceria']);
                     localStorage.setItem("telefone", data.responseJSON['telefone']);
                     localStorage.setItem("avatar", data.responseJSON['avatar']);
+                    localStorage.setItem("document_type", data.responseJSON['document_type']);
+                    localStorage.setItem("placa", data.responseJSON['placa']);
+                    localStorage.setItem("antt", data.responseJSON['antt']);
                     if(localStorage.getItem("gotoperfil") == "1"){
                         localStorage.removeItem("gotoperfil");
                         self.location.href = "meuperfil.html";

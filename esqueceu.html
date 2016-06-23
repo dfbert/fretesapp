@@ -24,28 +24,16 @@
     $(document).ready(function(){
         $(".entrar").click(function(){
             $("body").append("<div id=\"loading\" style=\"position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background-color: #2a2826; background-image: url('imagens/loading.gif'); background-size: 100% auto; background-repeat: no-repeat; background-position: center center; z-index:99999; \"></div>");
-            $.getJSON( config__apisite+"login.php", $("form").serialize())
+            $.getJSON( config__apisite+"recuperar_senha.php", $("form").serialize())
             .complete(function( data ) {
                 if(typeof data.responseJSON == "undefined"){
                     $("#loading").remove();
-                    alert("Senha incorreta!");
+                    alert("E-mail não existe!");
 
                 }
-                else if(typeof data.responseJSON['document'] != "undefined"){
-                    localStorage.setItem("id", data.responseJSON['id']);
-                    localStorage.setItem("document", data.responseJSON['document']);
-                    localStorage.setItem("name", data.responseJSON['name']);
-                    localStorage.setItem("mail", $("input[name='mail']").val());
-                    localStorage.setItem("password", $("input[name='password']").val());
-                    localStorage.setItem("veiculo", data.responseJSON['veiculo']);
-                    localStorage.setItem("carroceria", data.responseJSON['carroceria']);
-                    localStorage.setItem("telefone", data.responseJSON['telefone']);
-                    localStorage.setItem("avatar", data.responseJSON['avatar']);
-                    localStorage.setItem("document_type", data.responseJSON['document_type']);
-                    localStorage.setItem("antt", data.responseJSON['antt']);
-                    localStorage.setItem("placa", data.responseJSON['placa']);
-                    localStorage.setItem("logged", true);
-                    self.location.href = "cargas.html";
+                else if(typeof data.responseJSON['id'] != "undefined"){
+                    alert("E-mail enviado, confira sua caixa de entrada ou lixo eletrônico");
+                    self.location.href = "entrar.html";
                 }
             });
         });
@@ -58,23 +46,21 @@
 
         <header>
             <nav class="container">
-                <a href="home.html" style="float:left;"><i class="fa fa-chevron-left"></i> Voltar</a>
-                <center><h1>Login</h1></center>
+                <a href="entrar.html" style="float:left;"><i class="fa fa-chevron-left"></i> Voltar</a>
+                <center><h1>Recuperar senha</h1></center>
                <!-- <a href="#" style="float:right;">Atualizar</a>-->
             </nav>
         </header>
 
         <nav class="container">
             <div class="telefone">
-                <p style="font-family: 'Myriad Pro Regular'; color: #a6a6a6;">Entre agora na sua conta insirindo o e-mail e a senha cadastrada.</p> <br />
+                <p style="font-family: 'Myriad Pro Regular'; color: #a6a6a6;">Digite seu e-mail, eviaremos as intruções para recuperar a sua senha</p> <br />
                 <center>
                 <form>
                 <input name="mail" type="mail" class="input-block" placeholder="Digite seu e-mail">
-                <input name="password" type="password" class="input-block" placeholder="Digite sua senha">
                 </form>
                 </center>
-                <a href="#" class="entrar"><input class="botao-dash" type="button" url="#" value="Entrar" style="background-color: #458181; color: #fff; margin-top:20px;"></a>
-                <a href="esqueceu.html"><input class="botao-dash" type="button" url="esqueceu.html" value="Esqueceu sua senha?" style="margin-top: 5px; background: transparent; color: #555555;"></a>
+                <a href="#" class="entrar"><input class="botao-dash" type="button" url="#" value="Recuperar senha" style="background-color: #458181; color: #fff; margin-top:20px;"></a>
             </div>
         </nav>
 

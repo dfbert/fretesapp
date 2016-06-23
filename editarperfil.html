@@ -72,17 +72,20 @@
         });
         if(localStorage.getItem("avatar") !== null && localStorage.getItem("avatar").length) $("img").attr("src", localStorage.getItem("avatar"));
         $(".rplc").each(function(){
-            $(this).addClass("input-block");
-            $(this).css("cssText", "background: transparent !important");
-            $(this).css("width", "auto");
-            $(this).css("height", "20px");
-            $(this).css("padding", "0");
-            $(this).css("border", "none");
-
             var value = $(this).attr("name");
                         if(localStorage.getItem(value) !== null && localStorage.getItem(value).length) value = localStorage.getItem(value);
                         else value = '';
-            $(this).val(value);
+
+            if($(this).attr("name") != "document_type"){
+                $(this).addClass("input-block");
+                $(this).css("cssText", "background: transparent !important");
+                $(this).css("width", "auto");
+                $(this).css("height", "20px");
+                $(this).css("padding", "0");
+                $(this).css("border", "none");
+                $(this).val(value);
+            }
+            else $(this).html(value);
         });
         var SPMaskBehavior = function (val) {
           return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
@@ -94,7 +97,18 @@
         };
 
         $('input[name="telefone"]').mask(SPMaskBehavior, spOptions);
-        $('input[name="document"]').mask('000.000.000-00', {reverse: false});
+        if(localStorage.getItem("document_type") == "cpf") $('input[name="document"]').mask('000.000.000-00', {reverse: false});
+        else $('input[name="document"]').mask('00.000.000/0000-00', {reverse: true});
+        $('input[name="placa"]').mask('SSS-0000', {
+            'translation': {
+                S: {pattern: /[A-Za-z]/},
+                0: {pattern: /[0-9]/}
+            }
+            ,onKeyPress: function (value, event) {
+                event.currentTarget.value = value.toUpperCase();
+            }
+            });
+
         if(localStorage.getItem("avatar") !== null && localStorage.getItem("avatar").length){ 
             $(this).attr("src", localStorage.getItem("avatar"));
             var cw = $('img').width();
@@ -122,12 +136,17 @@
                 });*/
 
                 //user is "finished typing," do something
+                function valida(doc){
+                    if(localStorage.getItem("document_type") == "cnpj") return validarCNPJ(doc);
+                    else return validarCPF(doc);
+
+                }
                 function doneTyping () {
                     var val = $input.val();
                     $input.removeClass("input-wrong");
                     $input.removeClass("input-right");
                     if(name == "document"){
-                        if(validarCPF(val.replace(/[^0-9]/g, ''))){
+                        if(valida(val.replace(/[^0-9]/g, ''))){
                             $input.addClass("input-right");
                         }
                         else{
@@ -159,13 +178,21 @@
                             $input.addClass("input-wrong");
                         }
                     }
-                    if(name == "veiculo" || name == "carroceria"){
+                    if(name == "veiculo" || name == "carroceria" || name == "antt"){
                         if(val !== null){
                              $input.addClass("input-right");
                         }
                     }
                     if(name == "telefone"){
                         if(val.replace(/[^0-9]/g, '').length > 9){
+                            $input.addClass("input-right");
+                        }
+                        else{
+                            $input.addClass("input-wrong");
+                        }
+                    }
+                    if(name == "placa"){
+                        if(val.length > 7){
                             $input.addClass("input-right");
                         }
                         else{
@@ -202,7 +229,7 @@
                             else if(data == "cpf_in_use"){
                                 $("input[name='document']").removeClass("input-right");
                                 $("input[name='document']").addClass("input-wrong");
-                                alert("CPF em uso");
+                                alert("CPF ou CNPJ em uso");
                             $("#loading").remove();
                             }
                             else if(data == "ok"){
@@ -248,8 +275,10 @@
             <div class="info-perfil">
             
             <h1>Informações Pessoais</h1><hr>
-            <p>CPF</p>
+            <p class="rplc" name="document_type">...</p>
             <input class="rplc" pattern="\d*" name="document"></input>
+            <p>Nº ANTT</p>
+            <input class="rplc" pattern="\d*" name="antt"></input>
             
             </div>
             
@@ -285,6 +314,10 @@
                 <select class="rplc" name="carroceria">
                     <option selected disabled value="0">Tipo da carroceria</option>
                 </select>
+            </div>
+            <div style="float: left">
+            <p>PLACA</p>
+            <input class="rplc" name="placa"></input>
             </div>
 
             </div>
