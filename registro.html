@@ -19,6 +19,9 @@
     input[name='document_cnpj']{
         opacity: 0.6;
     }
+    input[type='radio']{
+       -webkit-appearance: radio !important;
+    }
     </style>
 
     <!-- Scripts -->
@@ -37,8 +40,24 @@
                 $("select[name='carroceria']").append("<option style='text-transform:capitalize;' value='"+this.id+"'> "+this.nome+"</option>");
             });
 
+
             $('input[name="document"]').mask('000.000.000-00', {reverse: false});
-            $('input[name="document_cnpj"]').mask('00.000.000/0000-00', {reverse: true});
+            window.type = 'cpf';
+            $('input[name="type"]').change(function(){
+            	if($(this).val() == "CPF"){
+            		$('input[name="document"]').mask('000.000.000-00', {reverse: false});
+            		$('input[name="document"]').attr('class', 'input-block');
+            		window.type = 'cpf';
+            	}
+            	else{
+            		$('input[name="document"]').mask('00.000.000/0000-00', {reverse: true});
+            		$('input[name="document"]').attr('class', 'input-block');
+            		window.type = 'cnpj';
+            	}
+            })
+
+
+
             $('input[name="placa"]').mask('SSS-0000', {
             'translation': {
                 S: {pattern: /[A-Za-z]/},
@@ -76,33 +95,27 @@
                     $input.removeClass("input-wrong");
                     $input.removeClass("input-right");
                     if(name == "document"){
+                    	if(window.type == 'cpf'){
                         if(validarCPF(val.replace(/[^0-9]/g, ''))){
                             $input.addClass("input-right");
-                            $("input[name='document_cnpj']").remove();
-                            $("input[name='type']").val('cpf');
                         }
                         else{
                             $input.addClass("input-wrong");
                         }
-                    }
-                    if(name == "document_cnpj"){
-                            if(validarCNPJ(val.replace(/[^0-9]/g, ''))){
-                                $input.addClass("input-right");
-                                $("input[name='type']").val('cnpj');
-                        if(!deleted){
-                            $("input[name='document']").remove();
-                            $input.attr("name", "document");
-                            $('input[name="document"]').mask('00.000.000/0000-00', {reverse: true});
-                            deleted = true;
+                    	}
+                    	else{
+                        if(validarCNPJ(val.replace(/[^0-9]/g, ''))){
+                            $input.addClass("input-right");
                         }
-                            }
-                            else{
-                                $input.addClass("input-wrong");
-                            }
+                        else{
+                            $input.addClass("input-wrong");
+                        }
+
+                    	}
                     }
                     if(name == "name"){
                         val = $.trim(val);
-                        if(val.length > 3 && /^[a-zA-Z\u00C0-\u00ff]+$/.test(val.replace(" ", "")) && /\s/.test(val)) {
+                        if(val.length) {
                             $input.addClass("input-right");
                         }
                         else{
@@ -197,9 +210,10 @@
             <div class="registro">
             <form>
                 <center>
-                <input type="text" class="input-block" name="name" placeholder="Nome completo">
-                <input type="text" pattern="\d*" class="input-block" name="document" placeholder="CPF">
-                <input type="text" pattern="\d*" class="input-block" name="document_cnpj" placeholder="CNPJ (Opcional)">
+                <input type="text" class="input-block" name="name" placeholder="Nome completo ou razão social"><br><br />
+				  <input type="radio" name="type" value="CPF" checked> CPF
+				  <input type="radio" name="type" value="CNPJ"> CNPJ <br />
+                <input type="text" pattern="\d*" class="input-block" name="document" placeholder="CPF ou CNPJ">
                 <input type="text" class="input-block" name="mail" placeholder="E-mail">
                 <select class="input-block" name="veiculo">
                     <option selected disabled value="0">Tipo do veículo</option>
@@ -208,7 +222,7 @@
                     <option selected disabled value="0">Tipo da carroceria</option>
                 </select>
                 <input type="text" class="input-block" name="placa" placeholder="Nº da Placa">
-                <input type="text" class="input-block" name="antt" placeholder="Nº ANTT">
+                <input type="text" class="input-block" name="antt" placeholder="Nº ANTT/RNTRC">
                 <input class="input-block" name="password" type="password" placeholder="Senha">
                 </center>
                 <a href="politica.html"><input class="botao-dash" type="button" url="politica.html"  value="Política de privacidade" style="margin-top: 20px; background: transparent; color: #458181; font-family: 'Myriad Pro Regular'"></a>
