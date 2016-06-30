@@ -85,7 +85,8 @@
                             else value = '...';
                         }
                         else if(value == "valor_por_peso"){
-                            if(rs.valor_frete !== null && rs.peso_bruto !== null) value = "R$"+(parseFloat(rs.valor_frete) / parseFloat(rs.peso_bruto))+" por Kg";
+                            var valorrr = (parseFloat(rs.valor_frete) / parseFloat(rs.peso_bruto)).toString();
+                            if(rs.valor_frete !== null && rs.peso_bruto !== null) value = "R$"+valorrr.substring(0, 5)+" por Kg";
                             else value = '...';
                         }
                         else if(value == "iframe_src"){

@@ -68,6 +68,17 @@
             }
             });
 
+        var SPMaskBehavior = function (val) {
+          return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+        },
+        spOptions = {
+          onKeyPress: function(val, e, field, options) {
+              field.mask(SPMaskBehavior.apply({}, arguments), options);
+            }
+        };
+
+        $('input[name="telefone"]').mask(SPMaskBehavior, spOptions);
+        
             $(".input-block").each(function(){
                 var typingTimer;                //timer identifier
                 var doneTypingInterval = 0;  //time in ms, 5 second for example
@@ -116,6 +127,14 @@
                     if(name == "name"){
                         val = $.trim(val);
                         if(val.length) {
+                            $input.addClass("input-right");
+                        }
+                        else{
+                            $input.addClass("input-wrong");
+                        }
+                    }
+                    if(name == "telefone"){
+                        if(val.replace(/[^0-9]/g, '').length > 9){
                             $input.addClass("input-right");
                         }
                         else{
@@ -223,6 +242,7 @@
                 </select>
                 <input type="text" class="input-block" name="placa" placeholder="Nº da Placa">
                 <input type="text" class="input-block" name="antt" placeholder="Nº ANTT/RNTRC">
+                <input class="input-block" pattern="\d*" name="telefone" type="text" placeholder="Telefone">
                 <input class="input-block" name="password" type="password" placeholder="Senha">
                 </center>
                 <a href="politica.html"><input class="botao-dash" type="button" url="politica.html"  value="Política de privacidade" style="margin-top: 20px; background: transparent; color: #458181; font-family: 'Myriad Pro Regular'"></a>
