@@ -10,7 +10,7 @@ function clearAll(){
 var pushNotification;
             
             function onDeviceReady() {
-                
+                alert("vai");
 			
 				try 
 				{ 
