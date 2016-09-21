@@ -61,8 +61,7 @@ var pushNotification;
 						}
 						else
 						{	// otherwise we were launched because the user touched a notification in the notification tray.
-							if (e.coldstart)
-							else
+							
 						}
 							
                         //android only
