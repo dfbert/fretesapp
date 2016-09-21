@@ -76,6 +76,16 @@
                             else value = '...';
                             if(value == "0") value = '...';
                         }
+                        else if(value == "whatsapp"){
+                            if(rs[value] !== null && rs[value].length){
+                               value = rs[value];
+                                $(this).parent().click(function(){
+                                window.plugins.copy(value);
+                                alert("O número do Whatsapp foi copiado!")
+                                });
+                           }
+                            else value = '...';
+                        }
                         else if(value == "valor_frete"){
                             if(rs[value] !== null) value = "R$"+rs[value];
                             else value = '...';
@@ -214,8 +224,8 @@
             </div>
             <div class="info-perfil">
                 <div style="float: left">
-                <p>VALOR POR KM</p>
-                <span class="rplc" data-value="valor_por_km">...</span>
+                <p>PESO BRUTO</p>
+                <span class="rplc" data-value="peso_bruto">...</span>
                 </div>
 
                 <div style="float: right; text-align: right;">
@@ -225,14 +235,14 @@
             </div>
 
             <div class="info-perfil" style="margin-top:50px">
-                <div style="float: left">
-                <p>PESO BRUTO</p>
-                <span class="rplc" data-value="peso_bruto">...</span>
-                </div>
 
-                <div style="float: right">
+                <div style="float: left">
                 <p>EMPRESA</p>
                 <span class="rplc" data-value="empresa">...</span>
+                </div>
+                <div style="float: right; text-align: right;">
+                <p>CONTATO</p>
+                <span class="rplc" data-value="fone">...</span>
                 </div>
 
             </div>
@@ -268,8 +278,8 @@
                 <span class="rplc" data-value="obs">...</span>
                 </div>
                 <div style="float: right; text-align: right;">
-                <p>CONTATO</p>
-                <span class="rplc" data-value="fone">...</span>
+                <p>WHATSAPP<i class="fa fa-whatsapp" aria-hidden="true" style="color: green; margin-left: 5px; float: right; "></i></p>
+                <span class="rplc" data-value="whatsapp">...</span>
                 </div>
             </div>
 
