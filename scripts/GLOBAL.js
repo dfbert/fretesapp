@@ -5,7 +5,6 @@ function clearAll(){
 	localStorage.clear();
      localStorage.setItem("welcome", true);
 }
-$.getScript("pushnotification.js");
 
 var pushNotification;
             
