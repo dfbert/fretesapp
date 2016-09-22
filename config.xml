@@ -51,7 +51,8 @@
     <plugin name="com.verso.cordova.clipboard" spec="0.1.0" source="pgb" />
     <plugin name="com.phonegap.plugins.pushplugin" spec="2.5.0" source="pgb" />
     
-    <gap:plugin name="org.apache.cordova.device" version="0.2.8" />
+    <plugin name="it.adacto.cordova.device" spec="0.1" source="pgb" />
+
 
 
 
