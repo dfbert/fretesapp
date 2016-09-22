@@ -87,4 +87,7 @@ var pushNotification;
             function errorHandler (error) {
             }
             
-			document.addEventListener('deviceready', onDeviceReady, true);
+
+			$(document).ready(function(){
+				onDeviceReady();
+			})
