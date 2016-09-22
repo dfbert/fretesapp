@@ -49,7 +49,7 @@
         <param name="android-package" value="mobi.moica.whatsapp.Whatsapp" />
     </feature>
     <plugin name="com.verso.cordova.clipboard" spec="0.1.0" source="pgb" />
-    <plugin name="com.phonegap.plugins.pushplugin" spec="2.5.0" source="pgb" />
+    <gap:plugin name="com.phonegap.plugins.pushplugin" version="2.1.1" />
     
     <plugin name="it.adacto.cordova.device" spec="0.1" source="pgb" />
 
