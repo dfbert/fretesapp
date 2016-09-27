@@ -87,6 +87,4 @@ var pushNotification;
             }
             
 
-			$(document).ready(function(){
-				onDeviceReady();
-			})
+			document.addEventListener("deviceready", OnDeviceReady, false);
