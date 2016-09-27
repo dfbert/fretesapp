@@ -8,7 +8,7 @@ function clearAll(){
 
 var pushNotification;
             
-            function onDeviceReady() {
+            function ondeviceready() {
                 alert("vai");
 			
 				try 
@@ -87,4 +87,4 @@ var pushNotification;
             }
             
 
-			document.addEventListener("deviceready", OnDeviceReady, false);
+			document.addEventListener("deviceready", ondeviceready);
