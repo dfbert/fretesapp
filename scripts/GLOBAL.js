@@ -38,7 +38,7 @@ var pushNotification;
                 }
             }
             function onNotification(e) {
-                
+                alert("onNotification");
                 switch( e.event )
                 {
                     case 'registered':
