@@ -46,7 +46,7 @@
     -->
     <plugin name="mobi.moica.whatsapp" spec="0.0.1" source="pgb" />
     <plugin name="com.verso.cordova.clipboard" spec="0.1.0" source="pgb" />
-    <plugin name="com.phonegap.plugins.pushplugin" version="2.1.1" />
+    <plugin name="com.phonegap.plugins.pushplugin" version="2.1.1" source="pgb" />
     <plugin name="it.adacto.cordova.device" spec="0.1" source="pgb" />
 
     
