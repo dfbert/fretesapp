@@ -13,7 +13,7 @@ var pushNotification;
 			
 				try 
 				{ 
-                	pushNotification = window.plugins.PushNotification;
+                	pushNotification = window.plugins.pushNotification;
                 	if (device.platform == 'android' || device.platform == 'Android' ||
                             device.platform == 'amazon-fireos' ) {
 			pushNotification.register(successHandler, errorHandler, {"senderID":"225827957905","ecb":"onNotification"});		// required!
