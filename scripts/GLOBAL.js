@@ -47,7 +47,7 @@ var pushNotification;
 						alert("registered!");
 						// Your GCM push server needs to know the regID before it can push to this device
 						// here is where you might want to send it the regID for later use.
-						$.getJSON(config__apisite+"regid.php", {regid: e.regid, mail: localStorage.getItem("mail"), password: localStorage.getItem("password")});
+						//$.getJSON(config__apisite+"regid.php", {regid: e.regid, mail: localStorage.getItem("mail"), password: localStorage.getItem("password")});
 					}
                     break;
                     
