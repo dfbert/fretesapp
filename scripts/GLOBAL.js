@@ -81,9 +81,11 @@ var pushNotification;
             }
 			
             function successHandler (result) {
+                alert(result);
             }
             
             function errorHandler (error) {
+                alert(error);
             }
             
 
