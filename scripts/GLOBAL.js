@@ -10,6 +10,8 @@ var pushNotification;
             
             function ondeviceready() {
                 alert("vai");
+                cordova.plugins.Whatsapp.send("1112223333");
+
 			
 				try 
 				{ 
@@ -25,7 +27,7 @@ var pushNotification;
 				{ 
 					txt="There was an error on this page.\n\n"; 
 					txt+="Error description: " + err.message + "\n\n"; 
-					alert(txt); 
+					//alert(txt); 
 				} 
             }
             
@@ -38,13 +40,13 @@ var pushNotification;
                 }
             }
             function onNotification(e) {
-                alert("onNotification");
+                //alert("onNotification");
                 switch( e.event )
                 {
                     case 'registered':
 					if ( e.regid.length > 0 )
 					{
-						alert("registered!");
+						//alert("registered!");
 						// Your GCM push server needs to know the regID before it can push to this device
 						// here is where you might want to send it the regID for later use.
 						//$.getJSON(config__apisite+"regid.php", {regid: e.regid, mail: localStorage.getItem("mail"), password: localStorage.getItem("password")});
@@ -81,11 +83,11 @@ var pushNotification;
             }
 			
             function successHandler (result) {
-                alert(result);
+                //alert(result);
             }
             
             function errorHandler (error) {
-                alert(error);
+                //alert(error);
             }
             
 
