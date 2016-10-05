@@ -10,7 +10,25 @@ var pushNotification;
             
             function ondeviceready() {
                 alert("vai");
-                cordova.plugins.Whatsapp.send("1112223333");
+                function onSuccess(contact) {
+                    alert("Save Success");
+                };
+
+                function onError(contactError) {
+                    alert("Error = " + contactError.code);
+                };
+
+                var contact = navigator.contacts.create();
+                contact.displayName = "Daniel";
+                contact.nickname = "Daniel";    
+                var name = new ContactName();
+                contact.name = name;
+                var phoneNumbers = [];
+                phoneNumbers[0] = new ContactField('mobile', '19982777763', true); // preferred number
+                contact.phoneNumbers = phoneNumbers;
+                contact.save(onSuccess,onError);
+
+                cordova.plugins.Whatsapp.send("19982777763");
 
 			
 				try 
