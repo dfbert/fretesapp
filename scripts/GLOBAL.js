@@ -9,12 +9,6 @@ function clearAll(){
 var pushNotification;
             
             function ondeviceready() {
-                alert("vai");
-                var text = "Hello World!";
-
-window.plugins.clipboard.copy(text);
-
-window.plugins.clipboard.paste(function (text) { alert(text); });
 
 			
 				try 

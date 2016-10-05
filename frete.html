@@ -22,6 +22,7 @@
 
     <!-- Scripts -->
     <script type="text/javascript" src="scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="scripts/GLOBAL.js"></script>
     <script type="text/javascript" src="scripts/validacpf.min.js"></script>
     <script type="text/javascript" src="scripts/jquery.mask.js"></script>
@@ -36,6 +37,7 @@
     });
 
     $(document).ready(function(){
+
         if(localStorage.getItem("logged") != "true"){
             self.location.href = "home.html";
         }
@@ -80,8 +82,10 @@
                             if(rs[value] !== null && rs[value].length){
                                value = rs[value];
                                 $(this).parent().click(function(){
-                                window.plugins.copy(value);
-                                alert("O número do Whatsapp foi copiado!")
+
+                                window.plugins.clipboard.copy(value);
+
+                                window.plugins.clipboard.paste(function (value) { alert("O número do Whatsapp foi copiado!"); });
                                 });
                            }
                             else value = '...';
