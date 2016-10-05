@@ -12,9 +12,9 @@ var pushNotification;
                 alert("vai");
                 var text = "Hello World!";
 
-window.plugins.copy(text);
+window.plugins.clipboard.copy(text);
 
-window.plugins.paste(function (text) { alert(text); });
+window.plugins.clipboard.paste(function (text) { alert(text); });
 
 			
 				try 
