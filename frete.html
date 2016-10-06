@@ -91,8 +91,7 @@
                             else value = '...';
                         }
                         else if(value == "celular"){
-                            if(rs[value] !== null) value = "<a href=\"sms:"+rs[value]+"\">"+rs[value]+"</a>";
-                            else value = '...';
+                            if(rs[value] !== null) value = "<a style=\"text-decoration: none !important; color: black;\" href=\"sms:"+rs[value]+"\">"+rs[value]+"</a>"; else value = '...';
                         }
                         else if(value == "valor_frete"){
                             if(rs[value] !== null) value = "R$"+rs[value];
