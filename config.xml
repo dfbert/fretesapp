@@ -94,4 +94,6 @@
 
 
     <access origin="*"/> <!-- allow local pages -->
+    <access origin="sms:*" launch-external="yes"/>
+
 </widget>
