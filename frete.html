@@ -93,6 +93,16 @@
                         else if(value == "celular"){
                             if(rs[value] !== null) value = "<a style=\"text-decoration: none !important; color: black;\" href=\"sms:"+rs[value]+"\">"+rs[value]+"</a>"; else value = '...';
                         }
+                        else if(value == "contratante_media"){
+                            value = 'starnumber';
+                            if(rs[value] !== null){
+                                if(rs[value] > 0){
+                                    value = rs[value].substring(0, 3)+" de 5";
+                                }
+                                else value = 'N/A';
+                            }
+                            else value = '...';
+                        }
                         else if(value == "valor_frete"){
                             if(rs[value] !== null) value = "R$"+rs[value];
                             else value = '...';
@@ -103,7 +113,7 @@
                         }
                         else if(value == "valor_por_peso"){
                             var valorrr = (parseFloat(rs.valor_frete) / parseFloat(rs.peso_bruto)).toString();
-                            if(rs.valor_frete !== null && rs.peso_bruto !== null) value = "R$"+valorrr.substring(0, 5)+" por Kg";
+                            if(rs.valor_frete !== null && rs.peso_bruto !== null) value = "R$"+valorrr.substring(0, 4).replace(".", ",")+" por Kg";
                             else value = '...';
                         }
                         else if(value == "iframe_src"){
@@ -290,6 +300,10 @@
                 </div>
             </div>
             <div class="info-perfil" style="margin-top:300px">
+                <div style="float: left">
+                <p>Média do contratante</p>
+                <span class="rplc" data-value="contratante_media">...</span>
+                </div>
 
                 <div style="float: right; text-align: right;">
                 <p>CELULAR</p>
@@ -311,6 +325,7 @@
                     <li><a href="meuperfil.html"><i class="fa fa-user fa-2" style="font-size:17px;padding-bottom:2px"></i><br/> Meu perfil</a></li>
                     <li><a href="cargas.html" class="check"><i class="fa fa-list-alt fa-2" style="font-size:17px;padding-bottom:2px"></i><br/>Ofertas de Carga</a></li>
                     <li><a href="buscar.html"><i class="fa fa-search fa-2" style="font-size:17px;padding-bottom:2px"></i><br/>Buscar Cargas</a></li>
+                    <li><a href="cargasfechadas.html"><i class="fa  fa-road fa-2" style="font-size:17px;padding-bottom:2px"></i><br/>Cargas Fechadas</a></li>
                     <li><a href="faleconosco.html"><i class="fa fa-comment fa-2" style="font-size:17px;padding-bottom:2px"></i><br/>Fale conosco</a></li>
                 </ul>
 
