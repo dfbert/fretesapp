@@ -156,9 +156,7 @@
                            if(rss.interesse == 0){
                                 $(".demonstrar-interesse").show();
                            }
-                           if(rss.contraproposta == 0){
                                 $(".contraproposta").show();
-                           }
                         }
                 });
 
@@ -174,7 +172,6 @@
                             .complete(function( data ) {
                                 if(data.responseText = "ok"){
                                     $(".demonstrar-interesse").remove();
-                                    $(".contraproposta").remove();
                                 }
                             });
 
@@ -310,6 +307,11 @@
                 <a href="sms:19982777763"><span class="rplc" data-value="celular">...</span></a>
                 </div>
             </div>
+            <!--<div class="info-perfil" style="margin-top:350px">
+                <div style="text-align: center;">
+                    Proposta mais baixa: <span class="rplc" data-value="minor_prop">...</span>
+                </div>
+            </div>-->
 
 
 
