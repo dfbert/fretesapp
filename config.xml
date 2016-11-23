@@ -49,7 +49,7 @@
     <plugin name="com.peerio.cordova.plugin.clipboard" spec="0.1.0" source="npm" />
 
     <!--<plugin name="com.phonegap.plugins.pushplugin" version="2.1.1" source="npm" /> -->
-    <plugin name="cordova-plugin-device" source="npm" />
+    <gap:plugin name="cordova-plugin-device" source="npm" />
 
     <preference name="phonegap-version"           value="cli-5.2.0" />   
     <!--
