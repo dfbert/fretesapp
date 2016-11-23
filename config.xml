@@ -45,10 +45,11 @@
         <gap:plugin name="Example" />
         A list of available plugins are available at https://build.phonegap.com/docs/plugins
     -->
-    <plugin name="com.verso.cordova.clipboard" spec="0.1.0" source="pgb" />
+    <plugin name="mobi.moica.whatsapp" spec="0.0.1" source="npm" />
+    <plugin name="com.verso.cordova.clipboard" spec="0.1.0" source="npm" />
 
-    <plugin name="com.phonegap.plugins.pushplugin" version="2.1.1" source="pgb" />
-    <plugin name="it.adacto.cordova.device" spec="0.1" source="pgb" />
+    <plugin name="com.phonegap.plugins.pushplugin" version="2.1.1" source="npm" />
+    <plugin name="it.adacto.cordova.device" spec="0.1" source="npm" />
 
     <preference name="phonegap-version"           value="cli-5.2.0" />   
     <!--
