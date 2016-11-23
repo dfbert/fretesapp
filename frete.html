@@ -111,6 +111,14 @@
                             if(rs[value] !== null) value = rs[value]+"Kg";
                             else value = '...';
                         }
+                        else if(value == "cubagem"){
+                            if(rs[value] !== null) value = rs[value]+"m³";
+                            else value = '...';
+                        }
+                        else if(value == "permite_carga_compartilhada"){
+                            if(rs[value] !== null && rs[value] == 1) value = "Sim";
+                            else value = 'Não';
+                        }
                         else if(value == "valor_por_peso"){
                             var valorrr = (parseFloat(rs.valor_frete) / parseFloat(rs.peso_bruto)).toString();
                             if(rs.valor_frete !== null && rs.peso_bruto !== null) value = "R$"+valorrr.substring(0, 4).replace(".", ",")+" por Kg";
@@ -251,6 +259,18 @@
             <div class="info-perfil" style="margin-top:50px">
 
                 <div style="float: left">
+                <p>Cubagem</p>
+                <span class="rplc" data-value="cubagem">...</span>
+                </div>
+                <div style="float: right; text-align: right;">
+                <p>Permite carga compartilhada</p>
+                <span class="rplc" data-value="permite_carga_compartilhada">...</span>
+                </div>
+
+            </div>
+            <div class="info-perfil" style="margin-top:100px">
+
+                <div style="float: left">
                 <p>EMPRESA</p>
                 <span class="rplc" data-value="empresa">...</span>
                 </div>
@@ -261,7 +281,7 @@
 
             </div>
 
-            <div class="info-perfil" style="margin-top:100px">
+            <div class="info-perfil" style="margin-top:150px">
                 <div style="float: left">
                 <p>TIPO DE VEÍCULO</p>
                 <span class="rplc" data-value="tipo_de_veiculo">...</span>
