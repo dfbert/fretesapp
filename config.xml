@@ -45,7 +45,6 @@
         <gap:plugin name="Example" />
         A list of available plugins are available at https://build.phonegap.com/docs/plugins
     -->
-    <plugin name="mobi.moica.whatsapp" spec="0.0.1" source="pgb" />
     <plugin name="com.verso.cordova.clipboard" spec="0.1.0" source="pgb" />
 
     <plugin name="com.phonegap.plugins.pushplugin" version="2.1.1" source="pgb" />
