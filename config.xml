@@ -4,8 +4,8 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.dfbert.inst.fretesweb"
-        versionCode="202"
-        version   = "1.9.5">
+        versionCode="1960"
+        version   = "1.9.6">
 
     <name>FretesWeb</name>
 
@@ -51,7 +51,7 @@
     <!--<plugin name="com.phonegap.plugins.pushplugin" version="2.1.1" source="npm" /> -->
     <gap:plugin name="cordova-plugin-device" source="npm" />
 
-    <preference name="phonegap-version"           value="cli-5.2.0" />   
+    <preference name="phonegap-version"           value="3.7.0" />   
     <!--
         <access origin="http://phonegap.com" />                    - allow any scure requests to http://phonegap.com/
         <access origin="http://phonegap.com" subdomains="true" />  - same as above, but including subdomains, such as http://build.phonegap.com/
