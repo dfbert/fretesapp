@@ -33,7 +33,12 @@ function clearAll(){
    });
  }
 
-  $$(document).on('deviceready', function deviceIsReady() {
+            function ondeviceready() {   
    alert('Device is ready!');
    setupPush();
- });
+}
+            
+            
+            
+
+            document.addEventListener("deviceready", ondeviceready);
