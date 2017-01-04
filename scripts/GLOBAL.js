@@ -8,7 +8,7 @@ function clearAll(){
  function setupPush() {
    var push = PushNotification.init({
        "android": {
-           "senderID": "XXXXXXXX"
+           "senderID": "225827957905"
        },
        "ios": {
          "sound": true,
