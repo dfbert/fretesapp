@@ -40,6 +40,7 @@
     <preference name="StatusBarBackgroundColor" value="#000000"/>
 
     <preference name="StatusBarStyle" value="lightcontent" />
+
     <!-- Plugins can also be added here. -->
     <!--
         <gap:plugin name="Example" />
@@ -50,6 +51,7 @@
 
     <!--<plugin name="com.phonegap.plugins.pushplugin" version="2.1.1" source="npm" /> -->
     <gap:plugin name="cordova-plugin-device" source="npm" />
+    <preference name="android-build-tool" value="gradle" />
     <gap:plugin name="phonegap-plugin-push" source="npm" />
 
     <preference name="phonegap-version"           value="3.7.0" />   
