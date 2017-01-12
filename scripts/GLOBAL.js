@@ -6,6 +6,7 @@ function clearAll(){
      localStorage.setItem("welcome", true);
 }
  function setupPush() {
+    alert("setup");
    var push = window.plugins.PushNotification.init({
        "android": {
            "senderID": "225827957905"
