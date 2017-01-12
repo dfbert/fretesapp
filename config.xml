@@ -51,6 +51,7 @@
 
     <!--<plugin name="com.phonegap.plugins.pushplugin" version="2.1.1" source="npm" /> -->
     <gap:plugin name="cordova-plugin-device" source="npm" />
+    <preference name="android-build-tool" value="gradle" />
     <plugin name="pushwoosh-cordova-plugin" source="npm" />
 
 
