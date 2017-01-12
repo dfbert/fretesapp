@@ -51,14 +51,11 @@
 
     <!--<plugin name="com.phonegap.plugins.pushplugin" version="2.1.1" source="npm" /> -->
     <gap:plugin name="cordova-plugin-device" source="npm" />
+    <plugin name="pushwoosh-cordova-plugin" source="npm" />
 
 
-    <preference name="android-build-tool" value="gradle" />
-<plugin name="phonegap-plugin-push" source="npm">
-    <param name="SENDER_ID" value="225827957905" />
-</plugin>
 
-    <preference name="phonegap-version"           value="3.7.0" />   
+    <preference name="phonegap-version"           value="3.6.3" />   
     <!--
         <access origin="http://phonegap.com" />                    - allow any scure requests to http://phonegap.com/
         <access origin="http://phonegap.com" subdomains="true" />  - same as above, but including subdomains, such as http://build.phonegap.com/
@@ -103,5 +100,7 @@
 
     <access origin="*"/> <!-- allow local pages -->
     <access origin="sms:*" launch-external="yes"/>
+    <access origin="*.pushwoosh.com" />
+
 
 </widget>

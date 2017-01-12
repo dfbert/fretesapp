@@ -5,49 +5,39 @@ function clearAll(){
 	localStorage.clear();
      localStorage.setItem("welcome", true);
 }
- function setupPush() {
-    alert("setup");
+function initPushwoosh() {
+  var pushwoosh = cordova.require("pushwoosh-cordova-plugin.PushNotification");
 
-  var push = PushNotification.init({
-    android: {
-        senderID: "225827957905"
-    },
-    browser: {
-        pushServiceURL: 'http://push.api.phonegap.com/v1/push'
-    },
-    ios: {
-        alert: "true",
-        badge: "true",
-        sound: "true"
-    },
-    windows: {}
-});
+  // Should be called before pushwoosh.onDeviceReady
+  document.addEventListener('push-notification', function(event) {
+    var notification = event.notification;
+    // handle push open here
+  });
+  
+  // Initialize Pushwoosh. This will trigger all pending push notifications on start.
+  pushwoosh.onDeviceReady({
+    appid: "FB3FB-27698",
+    projectid: "225827957905",
+    serviceName: "MPNS_SERVICE_NAME"
+  });
 
-push.on('registration', function(data) {
-    // data.registrationId
-    alert("registred");
-});
+pushwoosh.registerDevice(
+  function(status) {
+    var pushToken = status.pushToken;
+     alert(pushToken);
+  },
+  function(status) {
+    // handle registration error here
+  }
+);
 
-push.on('notification', function(data) {
-    // data.message,
-    // data.title,
-    // data.count,
-    // data.sound,
-    // data.image,
-    // data.additionalData
-    alert("notf");
-});
 
-push.on('error', function(e) {
-    // e.message
+}
 
-    alert("error");
-});
- }
 
             function ondeviceready() {   
    alert('Device is ready!');
-   setupPush();
+   initPushwoosh();
 }
             
             
