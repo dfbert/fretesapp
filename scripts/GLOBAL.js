@@ -7,31 +7,42 @@ function clearAll(){
 }
  function setupPush() {
     alert("setup");
-   var push = window.plugins.PushNotification.init({
-       "android": {
-           "senderID": "225827957905"
-       },
-       "ios": {
-         "sound": true,
-         "alert": true,
-         "badge": true
-       },
-       "windows": {}
-   });
 
-   push.on('registration', function(data) {
-       alert("registration event: " + data.registrationId);
-       var oldRegId = localStorage.getItem('registrationId');
-       if (oldRegId !== data.registrationId) {
-           // Save new registration ID
-           localStorage.setItem('registrationId', data.registrationId);
-           // Post registrationId to your app server as the value has changed
-       }
-   });
+  var push = PushNotification.init({
+    android: {
+        senderID: "225827957905"
+    },
+    browser: {
+        pushServiceURL: 'http://push.api.phonegap.com/v1/push'
+    },
+    ios: {
+        alert: "true",
+        badge: "true",
+        sound: "true"
+    },
+    windows: {}
+});
 
-   push.on('error', function(e) {
-       alert("push error = " + e.message);
-   });
+push.on('registration', function(data) {
+    // data.registrationId
+    alert("registred");
+});
+
+push.on('notification', function(data) {
+    // data.message,
+    // data.title,
+    // data.count,
+    // data.sound,
+    // data.image,
+    // data.additionalData
+    alert("notf");
+});
+
+push.on('error', function(e) {
+    // e.message
+
+    alert("error");
+});
  }
 
             function ondeviceready() {   

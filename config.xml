@@ -51,8 +51,12 @@
 
     <!--<plugin name="com.phonegap.plugins.pushplugin" version="2.1.1" source="npm" /> -->
     <gap:plugin name="cordova-plugin-device" source="npm" />
+
+
     <preference name="android-build-tool" value="gradle" />
-    <gap:plugin name="phonegap-plugin-push" source="npm" />
+<plugin name="phonegap-plugin-push" source="npm">
+    <param name="SENDER_ID" value="225827957905" />
+</plugin>
 
     <preference name="phonegap-version"           value="3.7.0" />   
     <!--
