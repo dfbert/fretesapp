@@ -58,7 +58,7 @@
 
 
 
-    <preference name="phonegap-version"           value="cli-5.1.1" />   
+    <preference name="phonegap-version"           value="3.7.0" />   
     <!--
         <access origin="http://phonegap.com" />                    - allow any scure requests to http://phonegap.com/
         <access origin="http://phonegap.com" subdomains="true" />  - same as above, but including subdomains, such as http://build.phonegap.com/
