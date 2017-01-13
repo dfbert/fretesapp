@@ -60,7 +60,7 @@
         if (device.platform == 'android' || device.platform == 'Android') {
             pushNotification.register(this.successHandler, this.errorHandler,{"senderID":"225827957905","ecb":"app.onNotificationGCM"});
         }
-        console.log('Received Event: ' + id);
+        alert('Received Event: ' + id);
     },
     onNotificationGCM: function(e) {
         switch( e.event )
