@@ -40,7 +40,6 @@
     <preference name="StatusBarBackgroundColor" value="#000000"/>
 
     <preference name="StatusBarStyle" value="lightcontent" />
-    <preference name="android-build-tool" value="gradle" />
 
     <!-- Plugins can also be added here. -->
     <!--
@@ -54,6 +53,7 @@ o
     <gap:plugin name="cordova-plugin-device" source="npm" />
 
 
+    <preference name="android-build-tool" value="gradle" />
     <gap:plugin name="cordova-plugin-pushplugin" source="npm" />
 
 
