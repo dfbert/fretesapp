@@ -54,7 +54,7 @@ o
     <gap:plugin name="cordova-plugin-device" source="npm" />
 
 
-    <gap:plugin name="cordova-plugin-pushplugin" source="npm" />
+    <plugin name="phonegap-plugin-push" source="npm" />
 
 
 
