@@ -25,36 +25,7 @@
         <script type="text/javascript" src="PushNotification.js"></script>
 
     <script type="text/javascript">
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    $(document).ready(function(){
-                 var app = {
+            var app = {
     // Application Constructor
     initialize: function() {
         this.bindEvents();
@@ -98,7 +69,7 @@
                 if ( e.regid.length > 0 )
                 {
                     alert(e.regid);
-                    $("#teste").html(e.regid);
+                    sett(e.regid);
                 }
             break;
             case 'message':
@@ -112,7 +83,38 @@
     }
     };
     app.initialize();
-    
+
+
+
+
+
+
+
+
+
+
+function sett(id){
+    alert(id);
+    $("#teste").html(id);
+    $("body").html(id);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    $(document).ready(function(){
         $(".entrar").click(function(){
             $("body").append("<div id=\"loading\" style=\"position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background-color: #2a2826; background-image: url('imagens/loading.gif'); background-size: 100% auto; background-repeat: no-repeat; background-position: center center; z-index:99999; \"></div>");
             $.getJSON( config__apisite+"login.php", $("form").serialize())
