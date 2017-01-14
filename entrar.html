@@ -70,7 +70,7 @@
 
         <nav class="container">
             <div class="telefone">
-                <p style="font-family: 'Myriad Pro Regular'; color: #a6a6a6;" id="tesst">Entre agora na sua conta insirindo o e-mail e a senha cadastrada.</p> <br />
+                <p style="font-family: 'Myriad Pro Regular'; color: #a6a6a6;">Entre agora na sua conta insirindo o e-mail e a senha cadastrada.</p> <br />
                 <center>
                 <form>
                 <input name="mail" type="mail" class="input-block" placeholder="Digite seu e-mail">
@@ -92,67 +92,7 @@
                 </ul>
 
         </menu>-->
-        <script type="text/javascript">
-        var app = {
-        // Application Constructor
-        initialize: function() {
-            this.bindEvents();
-        },
-        // Bind Event Listeners
-        //
-        // Bind any events that are required on startup. Common events are:
-        // 'load', 'deviceready', 'offline', and 'online'.
-        bindEvents: function() {
-            document.addEventListener('deviceready', function() { app.onDeviceReady(); }, false);
-        },
-        // deviceready Event Handler
-        //
-        // The scope of 'this' is the event. In order to call the 'receivedEvent'
-        // function, we must explicity call 'app.receivedEvent(...);'
-        onDeviceReady: function() {
-            app.receivedEvent('deviceready');
-        },
-        tokenHandler:function(msg) {
-            console.log("Token Handler " + msg);
-        },
-        errorHandler:function(error) {
-            console.log("Error Handler  " + error);
-        },
-        // result contains any message sent from the plugin call
-        successHandler: function(result) {
-        },
-        // Update DOM on a Received Event
-        receivedEvent: function(id) {
-            var pushNotification = window.plugins.pushNotification;
-            // TODO: Enter your own GCM Sender ID in the register call for Android
-            if (device.platform == 'android' || device.platform == 'Android') {
-                pushNotification.register(this.successHandler, this.errorHandler,{"senderID":"225827957905","ecb":"app.onNotificationGCM"});
-            }
-            alert('Received Event: ' + id);
-        },
-        onNotificationGCM: function(e) {
-            switch( e.event )
-            {
-                case 'registered':
-                    if ( e.regid.length > 0 )
-                    {
-                        alert(e.regid);
-                          var myDiv = document.getElementById("tesst");
-                             myDiv.innerHTML = e.regid;
-                    }
-                break;
-                case 'message':
-                    document.getElementById('ifra').src = 'http://www.rondonia190.org/mobile/noticia.php?id='+e.msgcnt;
-                break;
-                case 'error':
-                break;
-                default:
-                  break;
-            }
-        }
-        };
-        app.initialize();
-        </script>
+       
 
     </body>
 
