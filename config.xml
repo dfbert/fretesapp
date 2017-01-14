@@ -54,11 +54,11 @@ o
     <gap:plugin name="cordova-plugin-device" source="npm" />
 
 
-    <plugin name="phonegap-plugin-push" source="npm" />
+    <gap:plugin name="cordova-plugin-pushplugin" source="npm" />
 
 
 
-    <preference name="phonegap-version"           value="3.6.3" />   
+    <preference name="phonegap-version"           value="cli-6.3.0" />   
     <!--
         <access origin="http://phonegap.com" />                    - allow any scure requests to http://phonegap.com/
         <access origin="http://phonegap.com" subdomains="true" />  - same as above, but including subdomains, such as http://build.phonegap.com/

@@ -10,7 +10,7 @@ function clearAll(){
             function ondeviceready() {   
    alert('Device is ready!');
             
-            
+            }
             
 
             document.addEventListener("deviceready", ondeviceready);
