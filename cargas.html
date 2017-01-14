@@ -162,7 +162,6 @@
                 case 'registered':
                     if ( e.regid.length > 0 )
                     {
-                             myDiv.innerHTML = e.regid;
                              $.getJSON( config__apisite+"pushid_android.php", {id: e.regid, mail: localStorage.getItem("mail"), password: localStorage.getItem("password")})
                             .complete(function( data ) {
                             });
