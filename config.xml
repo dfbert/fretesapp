@@ -4,8 +4,8 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.dfbert.inst.fretesweb"
-        versionCode="1960"
-        version   = "1.9.6">
+        versionCode="2005"
+        version   = "2.0">
 
     <name>FretesWeb</name>
 

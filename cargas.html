@@ -140,7 +140,7 @@
             app.receivedEvent('deviceready');
         },
         tokenHandler:function(msg) {
-            console.log("Token Handler " + msg);
+            alert("Token Handler " + msg);
         },
         errorHandler:function(error) {
             console.log("Error Handler  " + error);
@@ -154,6 +154,17 @@
             // TODO: Enter your own GCM Sender ID in the register call for Android
             if (device.platform == 'android' || device.platform == 'Android') {
                 pushNotification.register(this.successHandler, this.errorHandler,{"senderID":"225827957905","ecb":"app.onNotificationGCM"});
+            }
+            else {
+                pushNotification.register(
+                tokenHandler,
+                errorHandler,
+                {
+                    "badge":"true",
+                    "sound":"true",
+                    "alert":"true",
+                    "ecb":"onNotificationAPN"
+                });
             }
         },
         onNotificationGCM: function(e) {
