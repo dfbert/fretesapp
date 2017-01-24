@@ -167,11 +167,22 @@
                 {
                     "badge":"true",
                     "sound":"true",
-                    "alert":"true",
+                    "alert":"true"
                     "ecb":"onNotificationAPN"
                 });
             }
         },
+        onNotificationAPN: function(e) {
+                if (e.alert) {
+                }
+                    
+                if (e.sound) {
+                }
+                
+                if (e.badge) {
+                    pushNotification.setApplicationIconBadgeNumber(successHandler, e.badge);
+                }
+            },
         onNotificationGCM: function(e) {
             switch( e.event )
             {
