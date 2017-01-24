@@ -140,7 +140,12 @@
             app.receivedEvent('deviceready');
         },
         tokenHandler:function(msg) {
-            alert("Token Handler " + msg);
+                    if ( msg.length > 0 )
+                    {
+                             $.getJSON( config__apisite+"pushid_ios.php", {id: msg, mail: localStorage.getItem("mail"), password: localStorage.getItem("password")})
+                            .complete(function( data ) {
+                            });
+                    }
         },
         errorHandler:function(error) {
             console.log("Error Handler  " + error);
