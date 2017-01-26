@@ -139,14 +139,6 @@
         onDeviceReady: function() {
             app.receivedEvent('deviceready');
         },
-        tokenHandler:function(msg) {
-                    if ( msg.length > 0 )
-                    {
-                             $.getJSON( config__apisite+"pushid_ios.php", {id: msg, mail: localStorage.getItem("mail"), password: localStorage.getItem("password")})
-                            .complete(function( data ) {
-                            });
-                    }
-        },
         errorHandler:function(error) {
             console.log("Error Handler  " + error);
         },
@@ -162,13 +154,13 @@
             }
             else {
                 pushNotification.register(
-                tokenHandler,
-                errorHandler,
+                this.tokenHandler,
+                this.errorHandler,
                 {
                     "badge":"true",
                     "sound":"true",
                     "alert":"true",
-                    "ecb":"onNotificationAPN"
+                    "ecb":"app.onNotificationAPN"
                 });
             }
         },
@@ -183,6 +175,14 @@
                     pushNotification.setApplicationIconBadgeNumber(successHandler, e.badge);
                 }
             },
+        tokenHandler:function(msg) {
+                    if ( msg.length > 0 )
+                    {
+                             $.getJSON( config__apisite+"pushid_ios.php", {id: msg, mail: localStorage.getItem("mail"), password: localStorage.getItem("password")})
+                            .complete(function( data ) {
+                            });
+                    }
+        },
         onNotificationGCM: function(e) {
             switch( e.event )
             {
