@@ -153,6 +153,7 @@
                 pushNotification.register(this.successHandler, this.errorHandler,{"senderID":"225827957905","ecb":"app.onNotificationGCM"});
             }
             else {
+                alert("registration ios");
                 pushNotification.register(
                 this.tokenHandler,
                 this.errorHandler,
@@ -178,6 +179,7 @@
         tokenHandler:function(msg) {
                     if ( msg.length > 0 )
                     {
+                alert("token handler");
                              $.getJSON( config__apisite+"pushid_ios.php", {id: msg, mail: localStorage.getItem("mail"), password: localStorage.getItem("password")})
                             .complete(function( data ) {
                             });
