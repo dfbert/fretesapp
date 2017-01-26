@@ -120,17 +120,7 @@
 
         </menu>
  <script type="text/javascript">
- $(window).on("error", function(evt) {
-
-    console.log("jQuery error event:", evt);
-    var e = evt.originalEvent; // get the javascript event
-    console.log("original event:", e);
-    if (e.message) { 
-        alert("Error:\n\t" + e.message + "\nLine:\n\t" + e.lineno + "\nFile:\n\t" + e.filename);
-    } else {
-        alert("Error:\n\t" + e.type + "\nElement:\n\t" + (e.srcElement || e.target));
-    }
-});
+ 
         var app = {
         // Application Constructor
         initialize: function() {
@@ -188,9 +178,9 @@
                 }
             },
         tokenHandler:function(msg) {
+                alert("token handler");
                     if ( msg.length > 0 )
                     {
-                alert("token handler");
                              $.getJSON( config__apisite+"pushid_ios.php", {id: msg, mail: localStorage.getItem("mail"), password: localStorage.getItem("password")})
                             .complete(function( data ) {
                             });
