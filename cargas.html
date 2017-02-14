@@ -69,11 +69,13 @@
                         i++;
                         var exp_dat = actual.data_da_expiracao.split("/");
                         var exp_dat = new Date(exp_dat[2]+"/"+exp_dat[1]+"/"+exp_dat[0]);
-                        //alert(exp_dat.getTime());
-                        if(actual.fechado == 0 && Date.now() < exp_dat.getTime()+"000"){
+                        if(actual.fechado == 0){
+                        if((exp_dat.getTime()-Date.now()) > 0){
+
                         $("ul.cargasUlLi").append('<li data-id="'+actual.id+'"> <br /><i class="fa fa-times-circle-o" style="color: #969696; font-size: 20px; float: left; display: none;"></i> <div class="listaCargas" style="float: left; margin-left:1%; margin-top:10px; width: 39.6%"> <h1>'+dict[actual.origem_estado]+'</h1> <h2>'+actual.origem_cidade+'</h2> <p>BRASIL</p> <p style="font-size:9px; font-family: \'Myriad Pro Regular\' ">coleta '+actual.data_da_coleta+' <span class="coleta_hoje" style="display:none; background-color: #348f30; color: #fff; padding-left:5px; padding-right:5px; padding-top:1px;padding-bottom:1px;font-size:5px; margin: 0 auto; border-radius: 3px; -webkit-border-radius:3px; -moz-border-radius: 3px;">hoje</span></p> </div> <i class="fa fa-truck" style="transform:rotateY(180deg); -webkit-transform:rotateY(180deg); color: #dedede; font-size:20px; margin-top:10px;float:left"></i> <i class="fa fa-arrow-right" style="color: #f4d117; word-wrap: break-word; float:left;margin-top:40px; margin-left:-15px"></i> <div class="listaCargas" style="float: left; margin-top:10px; width:39.6%"> <h1>'+dict[actual.destino_estado]+'</h1> <h2>'+actual.destino_cidade+'</h2> <p>BRASIL</p> <p style="font-size:9px; font-family: \'Myriad Pro Regular\' ">entrega '+actual.data_da_entrega+' <span class="entrega_hoje" style="display:none; background-color: #348f30; color: #fff; padding-left:5px; padding-right:5px; padding-top:1px;padding-bottom:1px;font-size:5px; margin: 0 auto; border-radius: 3px; -webkit-border-radius:3px; -moz-border-radius: 3px;">hoje</span></p> </div> <i class="fa fa-thumbs-up" style="color: #49a747; font-size: 10px; padding:3px; float: right; border-radius:50%;border:1.5px solid #49a747;"></i> <div class="favCargas" style="padding-top:90px !important"> <p style="float:left; font-size:10px; margin-left:20px"><i class="fa fa-road"></i> xxx Km</p> <p style="float:left; font-size:10px;margin-left:20px"><i class="fa fa-balance-scale"></i> '+actual.peso_bruto+'Kg</p> <h1 style="float: right; color: #45894c; font-size:20px; font-family: \'Myriad Pro Semibold\'">R$'+actual.valor_frete+'</h1> </div> </li>');
                         if(actual.data_da_coleta == today) $("li[data-id='"+actual.id+"'] .coleta_hoje").show();
                         if(actual.data_da_entrega == today) $("li[data-id='"+actual.id+"'] .entrega_hoje").show();
+                    }
                     }
                     });
                     $("ul.cargasUlLi li").click(function(){
@@ -141,7 +143,7 @@
             app.receivedEvent('deviceready');
         },
         errorHandler:function(error) {
-            alert("Error Handler  " + error);
+            //alert("Error Handler  " + error);
         },
         // result contains any message sent from the plugin call
         successHandler: function(result) {
@@ -154,7 +156,7 @@
                 pushNotification.register(this.successHandler, this.errorHandler,{"senderID":"225827957905","ecb":"app.onNotificationGCM"});
             }
             else {
-                alert("registration ios");
+                //alert("registration ios");
                 pushNotification.register(
                 this.tokenHandler,
                 this.errorHandler,
@@ -178,7 +180,7 @@
                 }
             },
         tokenHandler:function(msg) {
-                alert("token handler");
+                //alert("token handler");
                     if ( msg.length > 0 )
                     {
                              $.getJSON( config__apisite+"pushid_ios.php", {id: msg, mail: localStorage.getItem("mail"), password: localStorage.getItem("password")})

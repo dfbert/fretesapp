@@ -4,8 +4,8 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.dfbert.inst.fretesweb"
-        versionCode="2070"
-        version   = "2.0.7">
+        versionCode="2080"
+        version   = "2.0.8">
 
     <name>FretesWeb</name>
 
@@ -34,12 +34,7 @@
           <!-- all: current version of PhoneGap -->
     <preference name="orientation"                value="default" />        <!-- all: default means both landscape and portrait are enabled -->
     <preference name="target-device"              value="universal" />      <!-- all: possible values handset, tablet, or universal -->
-    <preference name="fullscreen"                 value="false" />           <!-- all: hides the status bar at the top of the screen -->
-    <preference name="StatusBarOverlaysWebView" value="false"/>
-
-    <preference name="StatusBarBackgroundColor" value="#000000"/>
-
-    <preference name="StatusBarStyle" value="lightcontent" />
+    <preference name="fullscreen"                 value="false" /> 
     <preference name="android-build-tool" value="gradle" />
 
     <!-- Plugins can also be added here. -->
